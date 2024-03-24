@@ -12,7 +12,7 @@ import component.base.Event
  * @param alignment specific alignment this component might have, can be `null` indicating
  *  the component aligns itself to whatever the renderer defaults to.
  */
-abstract class ComponentData(
+abstract class BaseComponentData(
     open val events: List<Event> = emptyList(),
     open val constraints: Constraints? = null,
     open val alignment: String? = null,

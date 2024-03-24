@@ -7,4 +7,4 @@ data class CardData(
     val shadow: ShadowData?,
     val stroke: StrokeData?,
     val border: BorderData?,
-) : ComponentData()
+) : BaseComponentData()

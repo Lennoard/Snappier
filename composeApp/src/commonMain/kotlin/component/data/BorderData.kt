@@ -5,4 +5,4 @@ data class BorderData(
     val topRight: Float = 0F,
     val bottomRight: Float = 0F,
     val bottomLeft: Float = 0F,
-) : ComponentData()
+) : BaseComponentData()

@@ -5,4 +5,4 @@ data class ImageData(
     val description: String,
     val resourceName: String? = null,
     val scaleType: String,
-) : ComponentData()
+) : BaseComponentData()

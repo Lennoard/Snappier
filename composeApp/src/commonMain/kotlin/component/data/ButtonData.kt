@@ -7,4 +7,4 @@ data class ButtonData(
     val border: BorderData?,
     val shadow: ShadowData?,
     val stroke: StrokeData?,
-) : ComponentData()
+) : BaseComponentData()

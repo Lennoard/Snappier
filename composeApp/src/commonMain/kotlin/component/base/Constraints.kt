@@ -1,8 +1,10 @@
 package component.base
 
+import engine.SnappierComponent
+
 /**
- * Layout constraints for a [Component].
- * Its inclusion/use is optional, the renderer will use default values when this absent.
+ * Layout constraints for a [SnappierComponent].
+ * Its inclusion/use is optional, the renderer will use default values when this is absent.
  */
 data class Constraints(
     val width: Float = 0F,

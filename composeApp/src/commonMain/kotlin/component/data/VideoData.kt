@@ -5,4 +5,4 @@ data class VideoData(
     val description: String,
     val resourceName: String? = null,
     val autoPlay: Boolean = false,
-) : ComponentData()
+) : BaseComponentData()
