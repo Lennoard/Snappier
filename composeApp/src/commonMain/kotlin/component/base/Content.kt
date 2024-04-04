@@ -9,8 +9,8 @@ import component.data.ShadowData
 import component.data.StrokeData
 import component.data.TextData
 import component.data.VideoData
-import engine.ComponentData
 import engine.SnappierComponent
+import engine.SnappierComponentData
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.buildJsonObject
 
@@ -20,7 +20,7 @@ import kotlinx.serialization.json.buildJsonObject
  *
  * This class is the entry point of the serialized "component" JSON.
  *
- * @see [ComponentData]
+ * @see [SnappierComponentData]
  */
 data class Content(
     val description: String? = null,

@@ -7,7 +7,7 @@ import kotlinx.serialization.json.JsonElement
  * Base interface for component data.
  * Components will use the contents of this to arrange themselves.
  */
-interface ComponentData {
+interface SnappierComponentData {
     /**
      * The list of [Content]s to be rendered on screen.
      */

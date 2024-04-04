@@ -5,10 +5,10 @@ import androidx.compose.runtime.Composable
 /**
  * Base interface for components.
  * Custom components must implement this interface and arrange themselves using the provided
- * [ComponentData] in the [ContentRender] function.
+ * [SnappierComponentData] in the [render] function.
  * A Component must have its own unique [id] that is registered by the renderer.
  *
- * @see [ComponentRegisterer]
+ * @see [SnappierComponentRegisterer]
  */
 interface SnappierComponent {
     val id: String
@@ -21,5 +21,5 @@ interface SnappierComponent {
      * @see <a href="https://developer.android.com/jetpack/compose">Jetpack Compose</a>
      **/
     @Composable
-    fun ContentRender(data: ComponentData)
+    fun render(data: SnappierComponentData)
 }

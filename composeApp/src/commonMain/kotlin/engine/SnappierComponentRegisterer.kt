@@ -5,16 +5,18 @@ package engine
  * All components used in a project mut be registered using the [register]
  * function with their own *unique* id.
  *
- * Component registration must occur before any call to [SnappierComponent.ContentRender] occurs.
+ * Component registration must occur before any call to [SnappierComponent.render] occurs.
  *
  * Non-registered components will not be rendered by default.
  */
-class ComponentRegisterer {
+internal class SnappierComponentRegisterer {
     private val registeredComponents: LinkedHashMap<String, SnappierComponent> = linkedMapOf()
 
     /**
      * Registers a component for the snappier engine.
      * The engine will only render registered components.
+     *
+     * @param component Component to be registered
      */
     fun register(component: SnappierComponent) {
         registeredComponents[component.id] = component
