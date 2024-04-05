@@ -8,7 +8,7 @@ data class VideoData(
     val description: String,
     val resourceName: String? = null,
     val autoPlay: Boolean = false,
+    val events: List<Event> = emptyList(),
     override val constraints: Constraints? = null,
-    override val alignment: String? = null,
-    override val events: List<Event> = emptyList(),
+    override val alignment: String? = null
 ) : BaseComponentData()

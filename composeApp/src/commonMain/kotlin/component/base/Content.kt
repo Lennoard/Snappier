@@ -18,8 +18,6 @@ import kotlinx.serialization.json.buildJsonObject
  * A [SnappierComponent]'s content. Any component can be reasonably
  * rendered using this class' properties as data.
  *
- * This class is the entry point of the serialized "component" JSON.
- *
  * @see [SnappierComponentData]
  */
 data class Content(
@@ -29,7 +27,7 @@ data class Content(
     val stroke: StrokeData? = null,
     val shadow: ShadowData? = null,
     val border: BorderData? = null,
-    val constraints: List<Constraints> = emptyList(),
+    val constraints: Constraints? = null,
     val parameters: JsonElement = buildJsonObject { },
     val images: List<ImageData> = emptyList(),
     val videos: List<VideoData> = emptyList(),
@@ -37,4 +35,5 @@ data class Content(
     val buttons: List<ButtonData> = emptyList(),
     val icons: List<IconData> = emptyList(),
     val cards: List<CardData> = emptyList(),
+    val events: List<Event> = emptyList()
 )

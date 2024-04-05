@@ -9,7 +9,7 @@ data class CardData(
     val shadow: ShadowData?,
     val stroke: StrokeData?,
     val border: BorderData?,
-    override val constraints: Constraints? = null,
+    val events: List<Event> = emptyList(),
     override val alignment: String? = null,
-    override val events: List<Event> = emptyList(),
+    override val constraints: Constraints? = null
 ) : BaseComponentData()

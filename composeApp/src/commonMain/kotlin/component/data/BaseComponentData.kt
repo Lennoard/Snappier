@@ -13,7 +13,6 @@ import component.base.Event
  *  the component aligns itself to whatever the renderer defaults to.
  */
 abstract class BaseComponentData(
-    open val events: List<Event> = emptyList(),
     open val constraints: Constraints? = null,
-    open val alignment: String? = null,
+    open val alignment: String? = null
 )
