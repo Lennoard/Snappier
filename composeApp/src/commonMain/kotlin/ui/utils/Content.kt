@@ -1,6 +1,7 @@
 package ui.utils
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 
 fun Color.Companion.parse(hex: String): Color {
@@ -18,6 +19,16 @@ fun String?.textAlignment(): TextAlign = when (this?.lowercase()) {
     "center" -> TextAlign.Center
     "justify" -> TextAlign.Justify
     else -> TextAlign.Start
+}
+
+fun String?.contentScale(): ContentScale = when (this?.lowercase()) {
+    "crop", "centercrop" -> ContentScale.Crop
+    "fit", "center" -> ContentScale.Fit
+    "fillbounds" -> ContentScale.FillBounds
+    "fillwidth" -> ContentScale.FillWidth
+    "fillheight" -> ContentScale.FillHeight
+    "inside", "centerinside" -> ContentScale.Inside
+    else -> ContentScale.None
 }
 
 private fun String.toColorInt(): Int {
