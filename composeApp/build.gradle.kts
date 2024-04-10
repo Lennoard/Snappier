@@ -75,6 +75,8 @@ kotlin {
             implementation(libs.androidx.activity.compose)
 
             implementation(libs.ktor.client.android)
+
+            implementation(libs.exoplayer)
         }
 
         iosMain.dependencies {
@@ -88,6 +90,8 @@ kotlin {
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.ktor.client.java)
+
+            implementation(libs.vlcj)
         }
     }
 }
