@@ -7,5 +7,6 @@ data class IconData(
     val token: String,
     val color: String,
     val events: List<Event> = emptyList(),
+    val description: String? = null,
     override val alignment: String? = null
 ) : BaseComponentData()
