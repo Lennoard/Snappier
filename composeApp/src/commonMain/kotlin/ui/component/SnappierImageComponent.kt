@@ -1,24 +1,27 @@
 package ui.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredWidth
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import com.seiko.imageloader.model.ImageAction
 import com.seiko.imageloader.rememberImageSuccessPainter
 import com.seiko.imageloader.ui.AutoSizeBox
-import component.base.Constraints
 import component.data.ImageData
 import engine.SnappierComponent
 import engine.SnappierComponentData
+import ui.utils.composeColor
 import ui.utils.contentScale
 
 class SnappierImageComponent : SnappierComponent {
@@ -34,14 +37,14 @@ class SnappierImageComponent : SnappierComponent {
                         Image(
                             rememberImageSuccessPainter(action),
                             contentDescription = image.description,
-                            modifier = imageModifier(image.constraints),
+                            modifier = image.imageModifier(),
                             contentScale = image.scaleType.contentScale()
                         )
                     }
                     is ImageAction.Loading -> {
                         if (image.constraints != null) {
                             Box(
-                                modifier = imageModifier(image.constraints),
+                                modifier = image.constraintsModifier(),
                                 contentAlignment = Alignment.Center
                             ) {
                                 CircularProgressIndicator()
@@ -54,11 +57,39 @@ class SnappierImageComponent : SnappierComponent {
         }
     }
 
-    private fun imageModifier(constraints: Constraints?): Modifier {
+    private fun ImageData?.imageModifier(): Modifier {
+        return Modifier.focusable().run {
+            var result: Modifier
+
+            result = constraintsModifier()
+
+            val shape = if (this@imageModifier?.border != null) {
+                RoundedCornerShape(
+                    topStart = border.topLeft,
+                    topEnd = border.topRight,
+                    bottomStart = border.bottomLeft,
+                    bottomEnd = border.bottomRight
+                )
+            } else {
+                RectangleShape
+            }
+
+            if (this@imageModifier?.border != null) {
+                result = clip(shape)
+            }
+
+            if (this@imageModifier?.stroke != null) {
+                result = border(stroke.width.dp, stroke.color.composeColor(), shape).clip(shape)
+            }
+
+            result
+        }
+    }
+
+    private fun ImageData?.constraintsModifier(): Modifier {
         return Modifier.focusable().run {
             var result = this
-
-            if (constraints != null) {
+            if (this@constraintsModifier?.constraints != null) {
                 result = if (constraints.width <= 0) {
                     result.fillMaxWidth()
                 } else {
@@ -69,6 +100,7 @@ class SnappierImageComponent : SnappierComponent {
                     result = result.requiredHeight(it.dp)
                 }
             }
+
             result
         }
     }
