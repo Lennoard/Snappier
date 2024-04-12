@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import component.base.Content
 import component.data.ButtonData
 import engine.SnappierComponent
 import engine.SnappierComponentData
@@ -23,44 +24,49 @@ class SnappierButtonComponent : SnappierComponent {
     override fun render(data: SnappierComponentData) {
         data.contents.firstOrNull()?.let { content ->
             val button = content.buttons.firstOrNull() ?: ButtonData()
-            val border = button.border
-            val stroke = button.stroke
-            Button(
-                modifier = Modifier.snappierModifier(content, button.constraints),
-                onClick = { },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = button.backgroundColor.composeColor(),
-                    contentColor = button.color.composeColor()
-                ),
-                elevation = ButtonDefaults.buttonElevation(
-                    defaultElevation = button.shadow?.elevation?.dp ?: 0.dp
-                ),
-                border = if (stroke != null) {
-                    BorderStroke(
-                        width = stroke.width.dp,
-                        color = stroke.color.composeColor()
-                    )
-                } else {
-                    null
-                },
-                shape = if (border != null) {
-                    RoundedCornerShape(
-                        topStart = border.topLeft,
-                        topEnd = border.topRight,
-                        bottomStart = border.bottomLeft,
-                        bottomEnd = border.bottomRight
-                    )
-                } else {
-                    ButtonDefaults.shape
-                }
-            ) {
-                Text(
-                    text = button.title,
-                    color = button.color.composeColor(),
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium
-                )
-            }
+            SnappierButton(content, button)
         }
+    }
+}
+
+@Composable
+internal fun SnappierButton(content: Content?, button: ButtonData) {
+    val border = button.border
+    val stroke = button.stroke
+    Button(
+        modifier = Modifier.snappierModifier(content, constraints = button.constraints),
+        onClick = { },
+        colors = ButtonDefaults.buttonColors(
+            containerColor = button.backgroundColor.composeColor(),
+            contentColor = button.color.composeColor()
+        ),
+        elevation = ButtonDefaults.buttonElevation(
+            defaultElevation = button.shadow?.elevation?.dp ?: 0.dp
+        ),
+        border = if (stroke != null) {
+            BorderStroke(
+                width = stroke.width.dp,
+                color = stroke.color.composeColor()
+            )
+        } else {
+            null
+        },
+        shape = if (border != null) {
+            RoundedCornerShape(
+                topStart = border.topLeft,
+                topEnd = border.topRight,
+                bottomStart = border.bottomLeft,
+                bottomEnd = border.bottomRight
+            )
+        } else {
+            ButtonDefaults.shape
+        }
+    ) {
+        Text(
+            text = button.title,
+            color = button.color.composeColor(),
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Medium
+        )
     }
 }

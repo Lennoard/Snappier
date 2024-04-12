@@ -19,7 +19,7 @@ import component.base.EventTrigger
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Modifier.snappierModifier(
-    content: Content,
+    content: Content?,
     constraints: Constraints? = null,
     onClick: (() -> Unit)? = null,
     onLongClick: (() -> Unit)? = null,
@@ -28,12 +28,12 @@ fun Modifier.snappierModifier(
     return focusable().run {
         var result = this
 
-        content.backgroundColor?.let { result = result.background(it.composeColor()) }
-        content.description?.let {
+        content?.backgroundColor?.let { result = result.background(it.composeColor()) }
+        content?.description?.let {
             result = result.semantics { contentDescription = it }
         }
 
-        content.events.forEach { event ->
+        content?.events?.forEach { event ->
             when (event.trigger) {
                 EventTrigger.OnClick,
                 EventTrigger.OnLongCLick -> result = result.combinedClickable(

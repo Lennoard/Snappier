@@ -31,77 +31,84 @@ class SnappierImageComponent : SnappierComponent {
     override fun render(data: SnappierComponentData) {
         data.contents.firstOrNull()?.let { content ->
             val image = content.images.firstOrNull() ?: ImageData()
-            AutoSizeBox(image.url) { action ->
-                when (action) {
-                    is ImageAction.Success -> {
-                        Image(
-                            rememberImageSuccessPainter(action),
-                            contentDescription = image.description,
-                            modifier = image.imageModifier(),
-                            contentScale = image.scaleType.contentScale()
-                        )
-                    }
-                    is ImageAction.Loading -> {
-                        if (image.constraints != null) {
-                            Box(
-                                modifier = image.constraintsModifier(),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                CircularProgressIndicator()
-                            }
-                        }
-                    }
-                    is ImageAction.Failure -> {}
-                }
-            }
+            SnappierImage(image)
         }
     }
+}
 
-    private fun ImageData?.imageModifier(): Modifier {
-        return Modifier.focusable().run {
-            var result: Modifier
-
-            result = constraintsModifier()
-
-            val shape = if (this@imageModifier?.border != null) {
-                RoundedCornerShape(
-                    topStart = border.topLeft,
-                    topEnd = border.topRight,
-                    bottomStart = border.bottomLeft,
-                    bottomEnd = border.bottomRight
+@Composable
+internal fun SnappierImage(image: ImageData) {
+    AutoSizeBox(image.url) { action ->
+        when (action) {
+            is ImageAction.Success -> {
+                Image(
+                    rememberImageSuccessPainter(action),
+                    contentDescription = image.description,
+                    modifier = image.imageModifier(),
+                    contentScale = image.scaleType.contentScale()
                 )
-            } else {
-                RectangleShape
             }
 
-            if (this@imageModifier?.border != null) {
-                result = clip(shape)
+            is ImageAction.Loading -> {
+                if (image.constraints != null) {
+                    Box(
+                        modifier = image.constraintsModifier(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
             }
 
-            if (this@imageModifier?.stroke != null) {
-                result = border(stroke.width.dp, stroke.color.composeColor(), shape).clip(shape)
-            }
-
-            result
+            is ImageAction.Failure -> {}
         }
     }
+}
 
-    private fun ImageData?.constraintsModifier(): Modifier {
-        return Modifier.focusable().run {
-            var result = this
-            if (this@constraintsModifier?.constraints != null) {
-                result = if (constraints.width <= 0) {
-                    result.fillMaxWidth()
-                } else {
-                    result.requiredWidth(constraints.width.dp)
-                }
+private fun ImageData?.imageModifier(): Modifier {
+    return Modifier.focusable().run {
+        var result: Modifier
 
-                constraints.height.takeIf { it > 0 }?.let {
-                    result = result.requiredHeight(it.dp)
-                }
+        result = constraintsModifier()
+
+        val shape = if (this@imageModifier?.border != null) {
+            RoundedCornerShape(
+                topStart = border.topLeft,
+                topEnd = border.topRight,
+                bottomStart = border.bottomLeft,
+                bottomEnd = border.bottomRight
+            )
+        } else {
+            RectangleShape
+        }
+
+        if (this@imageModifier?.border != null) {
+            result = clip(shape)
+        }
+
+        if (this@imageModifier?.stroke != null) {
+            result = border(stroke.width.dp, stroke.color.composeColor(), shape).clip(shape)
+        }
+
+        result
+    }
+}
+
+private fun ImageData?.constraintsModifier(): Modifier {
+    return Modifier.focusable().run {
+        var result = this
+        if (this@constraintsModifier?.constraints != null) {
+            result = if (constraints.width <= 0) {
+                result.fillMaxWidth()
+            } else {
+                result.requiredWidth(constraints.width.dp)
             }
 
-            result
+            constraints.height.takeIf { it > 0 }?.let {
+                result = result.requiredHeight(it.dp)
+            }
         }
+
+        result
     }
 }

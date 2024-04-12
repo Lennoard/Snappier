@@ -25,7 +25,7 @@ fun String?.contentScale(): ContentScale = when (this?.lowercase()) {
     "crop", "centercrop" -> ContentScale.Crop
     "fit", "center" -> ContentScale.Fit
     "fillbounds" -> ContentScale.FillBounds
-    "fillwidth" -> ContentScale.FillWidth
+    "fillwidth", "fill" -> ContentScale.FillWidth
     "fillheight" -> ContentScale.FillHeight
     "inside", "centerinside" -> ContentScale.Inside
     else -> ContentScale.None
