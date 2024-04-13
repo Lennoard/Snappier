@@ -24,8 +24,8 @@ fun String?.textAlignment(): TextAlign = when (this?.lowercase()) {
 fun String?.contentScale(): ContentScale = when (this?.lowercase()) {
     "crop", "centercrop" -> ContentScale.Crop
     "fit", "center" -> ContentScale.Fit
-    "fillbounds" -> ContentScale.FillBounds
-    "fillwidth", "fill" -> ContentScale.FillWidth
+    "fillbounds", "fill" -> ContentScale.FillBounds
+    "fillwidth" -> ContentScale.FillWidth
     "fillheight" -> ContentScale.FillHeight
     "inside", "centerinside" -> ContentScale.Inside
     else -> ContentScale.None

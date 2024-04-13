@@ -9,6 +9,7 @@ import component.data.ShadowData
 import component.data.StrokeData
 import component.data.TextData
 import component.data.VideoData
+import component.scaffold.ScaffoldData
 import engine.SnappierComponent
 import engine.SnappierComponentData
 import kotlinx.serialization.json.JsonElement
@@ -24,6 +25,7 @@ data class Content(
     val description: String? = null,
     val backgroundColor: String? = null,
     val foregroundColor: String? = null,
+    val scaffold: ScaffoldData? = null,
     val stroke: StrokeData? = null,
     val shadow: ShadowData? = null,
     val border: BorderData? = null,

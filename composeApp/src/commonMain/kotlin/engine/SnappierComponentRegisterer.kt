@@ -9,7 +9,7 @@ package engine
  *
  * Non-registered components will not be rendered by default.
  */
-internal class SnappierComponentRegisterer {
+internal object SnappierComponentRegisterer {
     private val registeredComponents: LinkedHashMap<String, SnappierComponent> = linkedMapOf()
 
     /**

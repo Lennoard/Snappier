@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import component.base.Component
 
 class Snappier {
-    private val registerer by lazy { SnappierComponentRegisterer() }
+    private val registerer by lazy { SnappierComponentRegisterer }
 
     @Composable
     fun draw(component: Component) {

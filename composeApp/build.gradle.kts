@@ -64,6 +64,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
 
+            implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)
 
             implementation(libs.bundles.ktor.common)
@@ -74,8 +75,9 @@ kotlin {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
 
-            implementation(libs.ktor.client.android)
+            implementation(libs.kotlinx.coroutines.android)
 
+            implementation(libs.ktor.client.android)
             implementation(libs.exoplayer)
         }
 
@@ -125,12 +127,18 @@ android {
         compose = true
     }
     compileOptions {
+        // For AGP 4.1+
+        isCoreLibraryDesugaringEnabled = true
+
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
         implementation(libs.compose.ui.tooling.preview)
+
+        coreLibraryDesugaring(libs.desugar.jdk.libs)
     }
 }
 
