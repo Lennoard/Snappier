@@ -11,31 +11,40 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import component.base.Content
+import component.base.EventTrigger
 import component.data.ButtonData
-import engine.SnappierComponent
 import engine.SnappierComponentData
+import engine.SnappierObservableComponent
 import ui.utils.composeColor
 import ui.utils.snappierModifier
 
-class SnappierButtonComponent : SnappierComponent {
-    override val id = "snappier_button"
+class SnappierButtonComponent : SnappierObservableComponent("snappier_button") {
 
     @Composable
     override fun render(data: SnappierComponentData) {
         data.contents.firstOrNull()?.let { content ->
-            val button = content.buttons.firstOrNull() ?: ButtonData()
-            SnappierButton(content, button)
+            content.buttons.firstOrNull()?.let { button ->
+                SnappierButton(
+                    onClick = {
+                        content.events.find { it.trigger == EventTrigger.OnClick }?.let { event ->
+                            emmitEvent(event)
+                        }
+                    },
+                    content = content,
+                    button = button
+                )
+            }
         }
     }
 }
 
 @Composable
-internal fun SnappierButton(content: Content?, button: ButtonData) {
+internal fun SnappierButton(onClick: () -> Unit, content: Content?, button: ButtonData) {
     val border = button.border
     val stroke = button.stroke
     Button(
         modifier = Modifier.snappierModifier(content, constraints = button.constraints),
-        onClick = { },
+        onClick = onClick,
         colors = ButtonDefaults.buttonColors(
             containerColor = button.backgroundColor.composeColor(),
             contentColor = button.color.composeColor()

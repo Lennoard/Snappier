@@ -2,14 +2,27 @@ package engine
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import component.base.Component
+import component.base.Event
 
-class Snappier {
+class Snappier : EventObserver {
     private val registerer by lazy { SnappierComponentRegisterer }
+
+    var customObserver: EventObserver? = null
 
     @Composable
     fun draw(component: Component) {
         val registeredComponent = registerer[component.id]
+
+        if (registeredComponent is EventCommunicator) {
+            DisposableEffect(true) {
+                registeredComponent.attachObserver(this@Snappier)
+                onDispose {
+                    registeredComponent.detachObserver(this@Snappier)
+                }
+            }
+        }
         registeredComponent?.render(component)
     }
 
@@ -28,5 +41,13 @@ class Snappier {
 
     fun register(component: SnappierComponent) {
         registerer.register(component)
+    }
+
+    override fun receiveEvent(event: Event) {
+        if (customObserver != null) {
+            customObserver?.receiveEvent(event)
+        } else {
+            // TODO: Call navigator
+        }
     }
 }

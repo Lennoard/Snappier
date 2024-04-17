@@ -8,5 +8,5 @@ data class TopBarData(
     val title: TextData? = null,
     val backgroundColor: String? = null,
     val navigationIcon: IconData? = null,
-    val actions: List<IconData>? = null
+    val icons: List<IconData>? = null
 ) : BaseComponentData()

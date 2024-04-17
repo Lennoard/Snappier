@@ -74,7 +74,7 @@ class SnappierCardComponent : SnappierComponent {
                             horizontalArrangement = Arrangement.End
                         ) {
                             cardContent.buttons.forEach { buttonData ->
-                                SnappierButton(null, buttonData)
+                                SnappierButton({}, null, buttonData)
                             }
                         }
                     }

@@ -26,19 +26,20 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import component.base.Event
+import component.base.EventTrigger
 import component.scaffold.BottomBarData
 import component.scaffold.NavigationItem
 import component.scaffold.ScaffoldData
 import component.scaffold.TopBarData
-import engine.SnappierComponent
 import engine.SnappierComponentData
 import engine.SnappierComponentRegisterer
+import engine.SnappierObservableComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import ui.utils.composeColor
 
-class SnappierScaffoldComponent : SnappierComponent {
-    override val id = "snappier_scaffold"
+class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold") {
 
     @Composable
     override fun render(data: SnappierComponentData) {
@@ -61,6 +62,9 @@ class SnappierScaffoldComponent : SnappierComponent {
                                     onClick = {
                                         scope.launch {
                                             drawerState.close()
+                                        }
+                                        item.action?.let {
+                                            emmitEvent(Event(it, EventTrigger.OnClick))
                                         }
                                     },
                                     label = { item.label?.let { Text(text = it) } },
@@ -131,8 +135,8 @@ class SnappierScaffoldComponent : SnappierComponent {
                     data.title?.let { SnappierText(null, it) }
                 },
                 navigationIcon = {
-                    data.navigationIcon?.let {
-                        getIconVectorByName(it.token)?.let { vector ->
+                    data.navigationIcon?.let { icon ->
+                        getIconVectorByName(icon.token)?.let { vector ->
                             IconButton(
                                 onClick = {
                                     if (isNavigationDrawerLayout) {
@@ -144,20 +148,33 @@ class SnappierScaffoldComponent : SnappierComponent {
                                             }
                                         }
                                     }
+
+                                    icon.events.find { it.trigger == EventTrigger.OnClick }?.let {
+                                        emmitEvent(it)
+                                    }
                                 }
                             ) {
                                 Icon(
                                     imageVector = vector,
-                                    contentDescription = it.description,
-                                    tint = it.color.composeColor(),
-                                    modifier = Modifier.size(it.size.dp)
+                                    contentDescription = icon.description,
+                                    tint = icon.color.composeColor(),
+                                    modifier = Modifier.size(icon.size.dp)
                                 )
                             }
                         }
                     }
                 },
                 actions = {
-                    data.actions?.forEach { SnappierIcon(it) }
+                    data.icons?.forEach { icon ->
+                        SnappierIcon(
+                            onClick = {
+                                icon.events.find { it.trigger == EventTrigger.OnClick }?.let {
+                                    emmitEvent(it)
+                                }
+                            },
+                            icon = icon
+                        )
+                    }
                 }
             )
         }
@@ -179,7 +196,11 @@ class SnappierScaffoldComponent : SnappierComponent {
                             unselectedTextColor = data.iconColor.composeColor()
                         ),
                         selected = false, // TODO
-                        onClick = { }, // TODO
+                        onClick = {
+                            item.action?.let {
+                                emmitEvent(Event(it, EventTrigger.OnClick))
+                            }
+                        },
                         label = if (item.label == null) {
                             null
                         } else {

@@ -1,6 +1,7 @@
 package component.base
 
 data class Event(
-    val trigger: EventTrigger? = null,
     val action: Action,
+    val trigger: EventTrigger? = null,
+    val customTrigger: String? = null
 )

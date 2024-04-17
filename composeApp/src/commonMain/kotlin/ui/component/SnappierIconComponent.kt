@@ -45,7 +45,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import component.base.EventTrigger
 import component.data.IconData
 import engine.SnappierComponent
 import engine.SnappierComponentData
@@ -58,22 +57,20 @@ class SnappierIconComponent : SnappierComponent {
     override fun render(data: SnappierComponentData) {
         data.contents.firstOrNull()?.let { content ->
             content.icons.firstOrNull()?.let { icon ->
-                SnappierIcon(icon)
+                SnappierIcon(
+                    onClick = { },
+                    icon = icon
+                )
             }
         }
     }
 }
 
 @Composable
-internal fun SnappierIcon(icon: IconData) {
+internal fun SnappierIcon(icon: IconData, onClick: (() -> Unit)? = null) {
     getIconVectorByName(icon.token)?.let { vector ->
         IconButton(
-            onClick = {
-                val onClickEvent = icon.events.find {
-                    it.trigger == EventTrigger.OnClick
-                }
-                // TODO: fire onClick action
-            }
+            onClick = { onClick?.invoke() }
         ) {
             Icon(
                 imageVector = vector,

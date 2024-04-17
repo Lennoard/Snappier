@@ -1,39 +1,182 @@
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
+import component.base.Action
+import component.base.ActionType
+import component.base.Component
+import component.base.Content
+import component.base.Event
+import component.base.EventTrigger
+import component.data.ButtonData
+import component.data.IconData
+import component.data.TextData
+import component.scaffold.NavigationItem
+import component.scaffold.ScaffoldData
+import component.scaffold.TopBarData
+import engine.EventObserver
+import engine.Snappier
+import engine.SnappierComponentRegisterer
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import snappier.composeapp.generated.resources.Res
-import snappier.composeapp.generated.resources.compose_multiplatform
+import ui.component.SnappierButtonComponent
+import ui.component.SnappierScaffoldComponent
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 @Preview
 fun App() {
+    SnappierComponentRegisterer.register(SnappierButtonComponent())
+    SnappierComponentRegisterer.register(SnappierScaffoldComponent())
+
+    val observer = EventObserver {
+        println(it.toString())
+    }
+
     MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(
-                    Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
-                }
-            }
+        val data = Component(
+            id = "snappier_scaffold",
+            contents = listOf(
+                Content(
+                    scaffold = ScaffoldData(
+                        floatingComponent = Component(
+                            id = "snappier_button",
+                            contents = listOf(
+                                Content(
+                                    buttons = listOf(
+                                        ButtonData(
+                                            color = "#cfda10",
+                                            backgroundColor = "#313131",
+                                            title = "Floating content",
+                                            events = listOf(
+                                                Event(
+                                                    trigger = EventTrigger.OnClick,
+                                                    action = Action(
+                                                        data = "app://settings",
+                                                        type = ActionType.LocalNavigation
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        ),
+                        isNavigationDrawerLayout = true,
+                        topBar = TopBarData(
+                            backgroundColor = "#ff9800",
+                            title = TextData(
+                                text = "Top Bar App Name",
+                                size = 24F,
+                                weight = 700,
+                                color = "#000000"
+                            ),
+                            icons = listOf(
+                                IconData(
+                                    size = 24F,
+                                    token = "favorite",
+                                    color = "#00eeFa",
+                                    events = listOf(
+                                        Event(
+                                            trigger = EventTrigger.OnClick,
+                                            action = Action(
+                                                data = "app://favorite",
+                                                type = ActionType.LocalNavigation
+                                            )
+                                        )
+                                    )
+                                ),
+                                IconData(
+                                    size = 24F,
+                                    token = "settings",
+                                    color = "#323232",
+                                    events = listOf(
+                                        Event(
+                                            trigger = EventTrigger.OnClick,
+                                            action = Action(
+                                                data = "app://settings",
+                                                type = ActionType.LocalNavigation
+                                            )
+                                        )
+                                    )
+                                ),
+                                IconData(
+                                    size = 24F,
+                                    token = "phone",
+                                    color = "#000000",
+                                    events = listOf(
+                                        Event(
+                                            trigger = EventTrigger.OnClick,
+                                            action = Action(
+                                                data = "app://call",
+                                                type = ActionType.LocalNavigation
+                                            )
+                                        )
+                                    )
+                                )
+                            ),
+                            navigationIcon = IconData(
+                                size = 24F,
+                                token = "menu",
+                                color = "#1A9a32"
+                            )
+                        ),
+                        navigationItems = listOf(
+                            NavigationItem(
+                                action = Action(),
+                                label = "Screen 1",
+                                color = "#123456",
+                                icon = IconData(
+                                    size = 32F,
+                                    token = "home",
+                                    color = "#987654"
+                                )
+                            ),
+                            NavigationItem(
+                                action = Action(),
+                                label = "Screen 2",
+                                color = "#123456",
+                                icon = IconData(
+                                    size = 32F,
+                                    token = "build",
+                                    color = "#987314"
+                                )
+                            ),
+                            NavigationItem(
+                                action = Action(),
+                                label = "Screen 3",
+                                color = "#123456",
+                                icon = IconData(
+                                    size = 32F,
+                                    token = "cart",
+                                    color = "#374865"
+                                )
+                            ),
+                            NavigationItem(
+                                action = Action(),
+                                label = "Screen 4",
+                                color = "#A2C594",
+                                icon = IconData(
+                                    size = 32F,
+                                    token = "settings",
+                                    color = "#F9C4A4"
+                                )
+                            ),
+                            NavigationItem(
+                                action = Action(),
+                                label = "Screen 5",
+                                color = "#AA225A",
+                                icon = IconData(
+                                    size = 32F,
+                                    token = "person",
+                                    color = "#CC6969"
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+
+        Snappier().apply {
+            customObserver = observer
+            draw(data)
         }
     }
 }
