@@ -45,20 +45,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import component.base.Event
+import component.base.EventTrigger
 import component.data.IconData
-import engine.SnappierComponent
 import engine.SnappierComponentData
+import engine.SnappierObservableComponent
 import ui.utils.composeColor
 
-class SnappierIconComponent : SnappierComponent {
-    override val id = "snappier_icon"
-
+class SnappierIconComponent : SnappierObservableComponent("snappier_icon") {
     @Composable
     override fun render(data: SnappierComponentData) {
         data.contents.firstOrNull()?.let { content ->
             content.icons.firstOrNull()?.let { icon ->
                 SnappierIcon(
-                    onClick = { },
+                    onClick = { emmitEvent(it) },
                     icon = icon
                 )
             }
@@ -67,10 +67,13 @@ class SnappierIconComponent : SnappierComponent {
 }
 
 @Composable
-internal fun SnappierIcon(icon: IconData, onClick: (() -> Unit)? = null) {
+internal fun SnappierIcon(icon: IconData, onClick: ((Event) -> Unit)? = null) {
     getIconVectorByName(icon.token)?.let { vector ->
         IconButton(
-            onClick = { onClick?.invoke() }
+            onClick = {
+                val event = icon.events.find { it.trigger == EventTrigger.OnClick }
+                event?.let { onClick?.invoke(it) }
+            }
         ) {
             Icon(
                 imageVector = vector,

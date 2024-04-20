@@ -7,7 +7,7 @@ abstract class SnappierObservableComponent(
     override val id: String,
     defaultObserver: EventObserver? = null
 ) : SnappierComponent, EventCommunicator {
-    private val observers = mutableSetOf<EventObserver>()
+    protected val observers = mutableSetOf<EventObserver>()
 
     init {
         defaultObserver?.let { attachObserver(it) }
@@ -16,17 +16,17 @@ abstract class SnappierObservableComponent(
     @Composable
     abstract override fun render(data: SnappierComponentData)
 
-    override fun emmitEvent(event: Event) {
+    final override fun emmitEvent(event: Event) {
         observers.forEach { observer ->
             observer.receiveEvent(event)
         }
     }
 
-    override fun attachObserver(observer: EventObserver) {
+    final override fun attachObserver(observer: EventObserver) {
         observers.add(observer)
     }
 
-    override fun detachObserver(observer: EventObserver) {
+    final override fun detachObserver(observer: EventObserver) {
         observers.remove(observer)
     }
 }

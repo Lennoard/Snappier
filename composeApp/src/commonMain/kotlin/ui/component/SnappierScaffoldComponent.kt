@@ -19,10 +19,12 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -32,6 +34,7 @@ import component.scaffold.BottomBarData
 import component.scaffold.NavigationItem
 import component.scaffold.ScaffoldData
 import component.scaffold.TopBarData
+import engine.EventCommunicator
 import engine.SnappierComponentData
 import engine.SnappierComponentRegisterer
 import engine.SnappierObservableComponent
@@ -47,6 +50,7 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
             if (scaffold.isNavigationDrawerLayout) {
                 val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
                 val scope = rememberCoroutineScope()
+                var selectedItem by remember { mutableStateOf<NavigationItem?>(null) }
 
                 ModalNavigationDrawer(
                     drawerState = drawerState,
@@ -58,11 +62,10 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
                                         selectedIconColor = item.color.composeColor(),
                                         selectedTextColor = item.color.composeColor()
                                     ),
-                                    selected = false, // TODO
+                                    selected = selectedItem == item,
                                     onClick = {
-                                        scope.launch {
-                                            drawerState.close()
-                                        }
+                                        selectedItem = item
+                                        scope.launch { drawerState.close() }
                                         item.action?.let {
                                             emmitEvent(Event(it, EventTrigger.OnClick))
                                         }
@@ -111,7 +114,17 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
             bottomBar = { BottomBar(scaffold.bottomBar, scaffold.navigationItems) },
             floatingActionButton = {
                 scaffold.floatingComponent?.let { component ->
-                    registerer[component.id]?.render(component)
+                    val registeredComponent = registerer[component.id]
+                    if (registeredComponent is EventCommunicator) {
+                        val observer = observers.firstOrNull() ?: return@let
+                        DisposableEffect(true) {
+                            registeredComponent.attachObserver(observer)
+                            onDispose {
+                                registeredComponent.detachObserver(observer)
+                            }
+                        }
+                    }
+                    registeredComponent?.render(component)
                 }
             }
         ) {

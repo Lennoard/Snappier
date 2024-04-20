@@ -14,6 +14,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import component.base.Constraints
 import component.base.Content
+import component.base.Event
 import component.base.EventTrigger
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -21,9 +22,9 @@ import component.base.EventTrigger
 fun Modifier.snappierModifier(
     content: Content?,
     constraints: Constraints? = null,
-    onClick: (() -> Unit)? = null,
-    onLongClick: (() -> Unit)? = null,
-    onDraw: (() -> Unit)? = null
+    onClick: ((Event) -> Unit)? = null,
+    onLongClick: ((Event) -> Unit)? = null,
+    onDraw: ((Event) -> Unit)? = null
 ): Modifier {
     return focusable().run {
         var result = this
@@ -37,11 +38,11 @@ fun Modifier.snappierModifier(
             when (event.trigger) {
                 EventTrigger.OnClick,
                 EventTrigger.OnLongCLick -> result = result.combinedClickable(
-                    onClick = { onClick?.invoke() },
-                    onLongClick = { onLongClick?.invoke() }
+                    onClick = { onClick?.invoke(event) },
+                    onLongClick = { onLongClick?.invoke(event) }
                 )
-                EventTrigger.OnDraw -> SideEffect { onDraw?.invoke() }
-                null -> {} // NO-OP
+                EventTrigger.OnDraw -> SideEffect { onDraw?.invoke(event) }
+                else -> {} // NO-OP
             }
         }
 

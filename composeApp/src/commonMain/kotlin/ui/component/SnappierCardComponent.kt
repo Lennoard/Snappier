@@ -13,13 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import component.base.Content
+import component.base.EventTrigger
 import component.data.CardData
-import engine.SnappierComponent
 import engine.SnappierComponentData
+import engine.SnappierObservableComponent
 import ui.utils.composeColor
 
-class SnappierCardComponent : SnappierComponent {
-    override val id = "snappier_card"
+class SnappierCardComponent : SnappierObservableComponent("snappier_card") {
 
     @Composable
     override fun render(data: SnappierComponentData) {
@@ -30,7 +30,11 @@ class SnappierCardComponent : SnappierComponent {
             val stroke = card.stroke
 
             OutlinedCard(
-                onClick = {},
+                onClick = {
+                    content.events.find { it.trigger == EventTrigger.OnClick }?.let { event ->
+                        emmitEvent(event)
+                    }
+                },
                 modifier = Modifier,
                 colors = CardDefaults.outlinedCardColors(
                     containerColor = card.backgroundColor.composeColor()
@@ -74,7 +78,17 @@ class SnappierCardComponent : SnappierComponent {
                             horizontalArrangement = Arrangement.End
                         ) {
                             cardContent.buttons.forEach { buttonData ->
-                                SnappierButton({}, null, buttonData)
+                                SnappierButton(
+                                    onClick = {
+                                        buttonData.events.find {
+                                            it.trigger == EventTrigger.OnClick
+                                        }?.let { event ->
+                                            emmitEvent(event)
+                                        }
+                                    },
+                                    content = null,
+                                    button = buttonData
+                                )
                             }
                         }
                     }

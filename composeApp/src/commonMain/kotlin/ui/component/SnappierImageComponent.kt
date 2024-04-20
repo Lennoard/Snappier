@@ -1,7 +1,9 @@
 package ui.component
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,6 +12,7 @@ import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -18,33 +21,44 @@ import androidx.compose.ui.unit.dp
 import com.seiko.imageloader.model.ImageAction
 import com.seiko.imageloader.rememberImageSuccessPainter
 import com.seiko.imageloader.ui.AutoSizeBox
+import component.base.Event
+import component.base.EventTrigger
 import component.data.ImageData
-import engine.SnappierComponent
 import engine.SnappierComponentData
+import engine.SnappierObservableComponent
 import ui.utils.composeColor
 import ui.utils.contentScale
 
-class SnappierImageComponent : SnappierComponent {
-    override val id = "snappier_image"
+class SnappierImageComponent : SnappierObservableComponent("snappier_image") {
 
     @Composable
     override fun render(data: SnappierComponentData) {
         data.contents.firstOrNull()?.let { content ->
             val image = content.images.firstOrNull() ?: ImageData()
-            SnappierImage(image)
+            SnappierImage(
+                image = image,
+                onClick = { emmitEvent(it) },
+                onLongClick = { emmitEvent(it) },
+                onDraw = { emmitEvent(it) }
+            )
         }
     }
 }
 
 @Composable
-internal fun SnappierImage(image: ImageData) {
+internal fun SnappierImage(
+    image: ImageData,
+    onClick: ((Event) -> Unit)? = null,
+    onLongClick: ((Event) -> Unit)? = null,
+    onDraw: ((Event) -> Unit)? = null
+) {
     AutoSizeBox(image.url) { action ->
         when (action) {
             is ImageAction.Success -> {
                 Image(
                     rememberImageSuccessPainter(action),
                     contentDescription = image.description,
-                    modifier = image.imageModifier(),
+                    modifier = image.imageModifier(onClick, onLongClick, onDraw),
                     contentScale = image.scaleType.contentScale()
                 )
             }
@@ -65,11 +79,16 @@ internal fun SnappierImage(image: ImageData) {
     }
 }
 
-private fun ImageData?.imageModifier(): Modifier {
+@Composable
+private fun ImageData?.imageModifier(
+    onClick: ((Event) -> Unit)? = null,
+    onLongClick: ((Event) -> Unit)? = null,
+    onDraw: ((Event) -> Unit)? = null
+): Modifier {
     return Modifier.focusable().run {
         var result: Modifier
 
-        result = constraintsModifier()
+        result = constraintsModifier(onClick, onLongClick, onDraw)
 
         val shape = if (this@imageModifier?.border != null) {
             RoundedCornerShape(
@@ -94,7 +113,13 @@ private fun ImageData?.imageModifier(): Modifier {
     }
 }
 
-private fun ImageData?.constraintsModifier(): Modifier {
+@Composable
+@OptIn(ExperimentalFoundationApi::class)
+private fun ImageData?.constraintsModifier(
+    onClick: ((Event) -> Unit)? = null,
+    onLongClick: ((Event) -> Unit)? = null,
+    onDraw: ((Event) -> Unit)? = null
+): Modifier {
     return Modifier.focusable().run {
         var result = this
         if (this@constraintsModifier?.constraints != null) {
@@ -106,6 +131,18 @@ private fun ImageData?.constraintsModifier(): Modifier {
 
             constraints.height.takeIf { it > 0 }?.let {
                 result = result.requiredHeight(it.dp)
+            }
+        }
+
+        this@constraintsModifier?.events?.forEach { event ->
+            when (event.trigger) {
+                EventTrigger.OnClick,
+                EventTrigger.OnLongCLick -> result = result.combinedClickable(
+                    onClick = { onClick?.invoke(event) },
+                    onLongClick = { onLongClick?.invoke(event) }
+                )
+                EventTrigger.OnDraw -> SideEffect { onDraw?.invoke(event) }
+                else -> {} // NO-OP
             }
         }
 
