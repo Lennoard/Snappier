@@ -5,16 +5,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import component.base.EventTrigger
 import component.data.VideoData
-import engine.SnappierComponent
 import engine.SnappierComponentData
+import engine.SnappierObservableComponent
 import ui.PlatformVideoPlayer
 
-class SnappierVideoComponent : SnappierComponent {
-    override val id = "snappier_video"
+class SnappierVideoComponent : SnappierObservableComponent("snappier_video") {
 
     @Composable
     override fun render(data: SnappierComponentData) {
@@ -24,6 +25,12 @@ class SnappierVideoComponent : SnappierComponent {
                     modifier = videoData.constraintsModifier(),
                     videoData = videoData
                 )
+
+                SideEffect {
+                    videoData.events.find { it.trigger == EventTrigger.OnDraw }?.let {
+                        emmitEvent(it)
+                    }
+                }
             }
         }
     }

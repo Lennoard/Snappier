@@ -195,6 +195,7 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
 
     @Composable
     private fun BottomBar(bottomBar: BottomBarData?, navigationItems: List<NavigationItem>?) {
+        var selectedItem by remember { mutableStateOf<NavigationItem?>(null) }
         bottomBar?.let { data ->
             NavigationBar(
                 containerColor = data.backgroundColor.composeColor()
@@ -208,8 +209,9 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
                             unselectedIconColor = data.iconColor.composeColor(),
                             unselectedTextColor = data.iconColor.composeColor()
                         ),
-                        selected = false, // TODO
+                        selected = selectedItem == item,
                         onClick = {
+                            selectedItem = item
                             item.action?.let {
                                 emmitEvent(Event(it, EventTrigger.OnClick))
                             }
