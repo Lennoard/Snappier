@@ -32,7 +32,7 @@ import ui.utils.contentScale
 class SnappierImageComponent : SnappierObservableComponent("snappier_image") {
 
     @Composable
-    override fun render(data: SnappierComponentData) {
+    override fun render(data: SnappierComponentData, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.let { content ->
             val image = content.images.firstOrNull() ?: ImageData()
             SnappierImage(

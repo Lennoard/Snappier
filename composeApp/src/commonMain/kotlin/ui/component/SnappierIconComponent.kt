@@ -54,7 +54,7 @@ import ui.utils.composeColor
 
 class SnappierIconComponent : SnappierObservableComponent("snappier_icon") {
     @Composable
-    override fun render(data: SnappierComponentData) {
+    override fun render(data: SnappierComponentData, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.let { content ->
             content.icons.firstOrNull()?.let { icon ->
                 SnappierIcon(

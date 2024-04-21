@@ -17,7 +17,7 @@ import ui.utils.textAlignment
 class SnappierTextComponent : SnappierObservableComponent("snappier_text") {
 
     @Composable
-    override fun render(data: SnappierComponentData) {
+    override fun render(data: SnappierComponentData, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.let { content ->
             val text = content.texts.firstOrNull() ?: TextData()
             SnappierText(

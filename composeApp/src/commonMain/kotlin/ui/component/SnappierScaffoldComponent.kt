@@ -34,10 +34,10 @@ import component.scaffold.BottomBarData
 import component.scaffold.NavigationItem
 import component.scaffold.ScaffoldData
 import component.scaffold.TopBarData
-import engine.EventCommunicator
 import engine.SnappierComponentData
 import engine.SnappierComponentRegisterer
 import engine.SnappierObservableComponent
+import engine.communication.EventDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import ui.utils.composeColor
@@ -45,7 +45,7 @@ import ui.utils.composeColor
 class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold") {
 
     @Composable
-    override fun render(data: SnappierComponentData) {
+    override fun render(data: SnappierComponentData, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.scaffold?.let { scaffold ->
             if (scaffold.isNavigationDrawerLayout) {
                 val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -69,6 +69,10 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
                                         item.action?.let {
                                             emmitEvent(Event(it, EventTrigger.OnClick))
                                         }
+                                        communicateData(
+                                            data = mapOf("selectedItemLabel" to item.label),
+                                            targetComponentIds = listOf("snappier_button")
+                                        )
                                     },
                                     label = { item.label?.let { Text(text = it) } },
                                     icon = {
@@ -86,10 +90,10 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
                         }
                     }
                 ) {
-                    SnappierScaffold(scaffold, drawerState, scope)
+                    SnappierScaffold(scaffold, drawerState, scope, extras)
                 }
             } else {
-                SnappierScaffold(scaffold, null, null)
+                SnappierScaffold(scaffold, null, null, extras)
             }
         }
     }
@@ -98,7 +102,8 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
     private fun SnappierScaffold(
         scaffold: ScaffoldData,
         drawerState: DrawerState?,
-        scope: CoroutineScope?
+        scope: CoroutineScope?,
+        extras: Map<String, Any?>?
     ) {
         val registerer by remember { mutableStateOf(SnappierComponentRegisterer) }
 
@@ -115,7 +120,7 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
             floatingActionButton = {
                 scaffold.floatingComponent?.let { component ->
                     val registeredComponent = registerer[component.id]
-                    if (registeredComponent is EventCommunicator) {
+                    if (registeredComponent is EventDispatcher) {
                         val observer = observers.firstOrNull() ?: return@let
                         DisposableEffect(true) {
                             registeredComponent.attachObserver(observer)
@@ -124,7 +129,7 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
                             }
                         }
                     }
-                    registeredComponent?.render(component)
+                    registeredComponent?.render(component, extras)
                 }
             }
         ) {

@@ -31,4 +31,12 @@ internal object SnappierComponentRegisterer {
     operator fun get(id: String): SnappierComponent? {
         return registeredComponents[id]
     }
+
+    /**
+     * Gets all registered components in a natural ordered list
+     * @return A [List] of all registered [SnappierComponent]s. Can be empty but never `null`.
+     */
+    internal fun getAll(): List<SnappierComponent> {
+        return registeredComponents.map(Map.Entry<String, SnappierComponent>::value)
+    }
 }

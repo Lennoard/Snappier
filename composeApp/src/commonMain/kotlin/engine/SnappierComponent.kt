@@ -18,8 +18,11 @@ interface SnappierComponent {
      * Implementations must use the contents of [data] to render
      * themselves in their particular way using Jetpack Compose [Composable]s
      *
+     * @param data Component data with which UI is based
+     * @param extras Extra component data, usually filled with parameters from other components.
+     *
      * @see <a href="https://developer.android.com/jetpack/compose">Jetpack Compose</a>
      **/
     @Composable
-    fun render(data: SnappierComponentData)
+    fun render(data: SnappierComponentData, extras: Map<String, Any?>?)
 }

@@ -21,9 +21,12 @@ import ui.utils.snappierModifier
 class SnappierButtonComponent : SnappierObservableComponent("snappier_button") {
 
     @Composable
-    override fun render(data: SnappierComponentData) {
+    override fun render(data: SnappierComponentData, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.let { content ->
             content.buttons.firstOrNull()?.let { button ->
+                extras?.let {
+                    Text("I received some extras: $extras")
+                }
                 SnappierButton(
                     onClick = {
                         content.events.find { it.trigger == EventTrigger.OnClick }?.let { event ->

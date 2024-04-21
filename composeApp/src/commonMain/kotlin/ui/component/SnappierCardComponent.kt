@@ -22,7 +22,7 @@ import ui.utils.composeColor
 class SnappierCardComponent : SnappierObservableComponent("snappier_card") {
 
     @Composable
-    override fun render(data: SnappierComponentData) {
+    override fun render(data: SnappierComponentData, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.let { content ->
             val card = content.cards.firstOrNull() ?: CardData(Content())
             val cardContent = card.content
