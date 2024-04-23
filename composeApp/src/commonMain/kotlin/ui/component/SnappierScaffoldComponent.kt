@@ -1,6 +1,10 @@
 package ui.component
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import component.base.Component
 import component.base.Event
 import component.base.EventTrigger
 import component.scaffold.BottomBarData
@@ -119,21 +124,45 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
             bottomBar = { BottomBar(scaffold.bottomBar, scaffold.navigationItems) },
             floatingActionButton = {
                 scaffold.floatingComponent?.let { component ->
-                    val registeredComponent = registerer[component.id]
-                    if (registeredComponent is EventDispatcher) {
-                        val observer = observers.firstOrNull() ?: return@let
-                        DisposableEffect(true) {
-                            registeredComponent.attachObserver(observer)
-                            onDispose {
-                                registeredComponent.detachObserver(observer)
-                            }
-                        }
-                    }
-                    registeredComponent?.render(component, extras)
+                    ScaffoldComponent(registerer, component, extras)
                 }
             }
-        ) {
+        ) { paddingValues ->
+            scaffold.components?.let { components ->
+                Box(
+                    modifier = Modifier
+                        .padding(paddingValues)
+                        .consumeWindowInsets(paddingValues)
+                ) {
+                    LazyColumn {
+                        items(count = components.count()) { index ->
+                            ScaffoldComponent(registerer, components[index], extras)
+                        }
+                    }
+                }
+            }
         }
+    }
+
+    @Composable
+    private fun ScaffoldComponent(
+        registerer: SnappierComponentRegisterer,
+        component: Component,
+        extras: Map<String, Any?>?
+    ) {
+        val registeredComponent = registerer[component.id]
+        if (registeredComponent is EventDispatcher) {
+            observers.firstOrNull()?.let { observer ->
+                DisposableEffect(true) {
+                    registeredComponent.attachObserver(observer)
+                    onDispose {
+                        registeredComponent.detachObserver(observer)
+                    }
+                }
+            }
+        }
+
+        registeredComponent?.render(component, extras)
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
