@@ -29,7 +29,6 @@ kotlin {
     }
 
     js {
-        // ./gradlew jsRun --continuous
         browser {
             commonWebpackConfig {
                 cssSupport {
@@ -93,7 +92,9 @@ kotlin {
         }
 
         jsMain.dependencies {
+            implementation(compose.html.core)
             implementation(libs.ktor.client.js)
+            implementation(libs.kotlinx.html.js)
             implementation(npm("video.js", "8.10.0"))
         }
 
@@ -104,6 +105,10 @@ kotlin {
             implementation(libs.vlcj)
         }
     }
+}
+
+compose.experimental {
+    web.application {}
 }
 
 /*publishing {
