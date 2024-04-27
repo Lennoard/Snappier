@@ -8,25 +8,6 @@ plugins {
 }
 
 kotlin {
-   /* @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        moduleName = "snappierApp"
-        browser {
-            commonWebpackConfig {
-                outputFileName = "snappierApp.js"
-                devServer =
-                    (devServer ?: KotlinWebpackConfig.DevServer()).apply {
-                        static =
-                            (static ?: mutableListOf()).apply {
-                                // Serve sources to debug inside browser
-                                add(project.projectDir.path)
-                            }
-                    }
-            }
-        }
-        binaries.executable()
-    }*/
-
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -38,8 +19,9 @@ kotlin {
     jvm("desktop")
 
     js(IR) {
-        useCommonJs()
+        // .gradlew jsRun
         browser()
+        binaries.executable()
     }
 
     listOf(
@@ -57,6 +39,8 @@ kotlin {
         val desktopMain by getting
 
         commonMain.dependencies {
+            implementation(project(":lib"))
+
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
@@ -64,36 +48,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
 
-            implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)
-
-            implementation(libs.bundles.ktor.common)
-            implementation(libs.imageLoader)
-        }
-
-        androidMain.dependencies {
-            implementation(libs.compose.ui.tooling.preview)
-            implementation(libs.androidx.activity.compose)
-
-            implementation(libs.kotlinx.coroutines.android)
-
-            implementation(libs.ktor.client.android)
-            implementation(libs.exoplayer)
-        }
-
-        iosMain.dependencies {
-            implementation(libs.ktor.client.darwin)
-        }
-
-        jsMain.dependencies {
-            implementation(libs.ktor.client.js)
-        }
-
-        desktopMain.dependencies {
-            implementation(compose.desktop.currentOs)
-            implementation(libs.ktor.client.java)
-
-            implementation(libs.vlcj)
         }
     }
 }
@@ -107,7 +62,7 @@ android {
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
-        applicationId = "br.com.androidvip.snappier"
+        applicationId = "br.com.androidvip.snappier.app"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
