@@ -10,7 +10,7 @@ plugins {
 val snappierGitHubUser: String by project
 val snappierGitHubToken: String by project
 val libraryGroup = "br.com.androidvip.snappier"
-val libraryVersion = "0.0.1"
+val libraryVersion = "0.1.0"
 
 group = libraryGroup
 version = libraryVersion
@@ -111,18 +111,18 @@ compose.experimental {
     web.application {}
 }
 
-/*publishing {
-    // gradlew shared:publish
+publishing {
+    // gradlew lib:publish
     repositories {
         maven {
             setUrl("https://maven.pkg.github.com/Lennoard/Snappier")
             credentials {
-                username = GITHUB_USER
-                password = GITHUB_TOKEN
+                username = snappierGitHubUser
+                password = snappierGitHubToken
             }
         }
     }
-}*/
+}
 
 android {
     namespace = libraryGroup
