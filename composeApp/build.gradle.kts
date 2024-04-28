@@ -39,6 +39,7 @@ kotlin {
         val desktopMain by getting
 
         commonMain.dependencies {
+            // implementation("br.com.androidvip.snappier:lib:0.1.0")
             implementation(project(":lib"))
 
             implementation(compose.runtime)

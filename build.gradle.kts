@@ -9,6 +9,9 @@ plugins {
     alias(libs.plugins.kotlinxSerialization) apply false
 }
 
+val snappierGitHubUser: String by project
+val snappierGitHubToken: String by project
+
 allprojects {
 
     repositories {
@@ -19,5 +22,14 @@ allprojects {
         maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/bootstrap")
         maven("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental")
         maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev/")
+
+        maven {
+            name = "Github Packages"
+            url = uri("https://maven.pkg.github.com/Lennoard/Snappier")
+            credentials {
+                username = snappierGitHubUser
+                password = snappierGitHubToken
+            }
+        }
     }
 }
