@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinCocoapods)
+    alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
     id("org.jetbrains.dokka") version "0.9.17"
@@ -83,7 +84,7 @@ kotlin {
 
             implementation(libs.kotlinx.coroutines.android)
 
-            implementation(libs.ktor.client.android)
+            implementation(libs.ktor.client.okhttp)
             implementation(libs.exoplayer)
         }
 
@@ -100,7 +101,7 @@ kotlin {
 
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
-            implementation(libs.ktor.client.java)
+            implementation(libs.ktor.client.apache5)
 
             implementation(libs.vlcj)
         }

@@ -1,4 +1,4 @@
-package br.com.androidvip.snappier.ui.component.data
+package br.com.androidvip.snappier.domain.component.data
 
 import androidx.compose.ui.text.font.FontWeight
 import br.com.androidvip.snappier.domain.component.base.Constraints

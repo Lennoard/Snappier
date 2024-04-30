@@ -6,7 +6,9 @@ enum class EventTrigger {
     OnDraw,
     SelectionChanged;
 
-    fun parse(name: String): EventTrigger? {
-        return entries.firstOrNull { name.lowercase() == it.name.lowercase() }
+    companion object {
+        fun parse(name: String): EventTrigger? {
+            return entries.firstOrNull { name.lowercase() == it.name.lowercase() }
+        }
     }
 }

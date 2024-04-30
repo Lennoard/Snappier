@@ -1,191 +1,79 @@
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import br.com.androidvip.snappier.Snappier
 import br.com.androidvip.snappier.domain.communication.EventObserver
 import br.com.androidvip.snappier.domain.component.Component
-import br.com.androidvip.snappier.domain.component.base.Action
-import br.com.androidvip.snappier.domain.component.base.ActionType
-import br.com.androidvip.snappier.domain.component.base.Constraints
-import br.com.androidvip.snappier.domain.component.base.Content
-import br.com.androidvip.snappier.domain.component.base.Event
-import br.com.androidvip.snappier.domain.component.base.EventTrigger
-import br.com.androidvip.snappier.domain.component.scaffold.NavigationItem
-import br.com.androidvip.snappier.domain.component.scaffold.ScaffoldData
-import br.com.androidvip.snappier.domain.component.scaffold.TopBarData
-import br.com.androidvip.snappier.ui.component.SnappierButtonComponent
-import br.com.androidvip.snappier.ui.component.SnappierCardComponent
-import br.com.androidvip.snappier.ui.component.SnappierIconComponent
-import br.com.androidvip.snappier.ui.component.SnappierImageComponent
-import br.com.androidvip.snappier.ui.component.SnappierScaffoldComponent
-import br.com.androidvip.snappier.ui.component.SnappierTextComponent
-import br.com.androidvip.snappier.ui.component.data.ButtonData
-import br.com.androidvip.snappier.ui.component.data.IconData
-import br.com.androidvip.snappier.ui.component.data.TextData
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.request.get
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
 fun App() {
+    var sampleComponent by remember { mutableStateOf<Component?>(null) }
+    var loading by remember { mutableStateOf(true) }
+    val scope = rememberCoroutineScope()
+    val client = HttpClient {
+        install(Logging)
+        install(ContentNegotiation) {
+            json()
+        }
+    }
     val snappier = Snappier().apply {
-        register(SnappierButtonComponent())
-        register(SnappierScaffoldComponent())
-        register(SnappierCardComponent())
-        register(SnappierImageComponent())
-        register(SnappierTextComponent())
-        register(SnappierIconComponent())
+        customObserver = EventObserver { event ->
+            println("Received event: $event")
+        }
+    }
 
-        customObserver = EventObserver {
-            println(it.toString())
+    LaunchedEffect(true) {
+        scope.launch {
+            delay(500)
+            runCatching {
+                // To test this, go to /api and run "npm run start"
+                sampleComponent = client.get("http://localhost:8080/api").body()
+            }
+            loading = false
+            client.close()
         }
     }
 
     MaterialTheme {
-        // Sample content data
-        val data = Component(
-            id = "snappier_scaffold",
-            contents = listOf(
-                Content(
-                    scaffold = ScaffoldData(
-                        components = listOf(
-                            Component(
-                                id = SnappierTextComponent.ID,
-                                contents = listOf(
-                                    Content(
-                                        texts = listOf(
-                                            TextData(
-                                                text = "Scaffold content!",
-                                                size = 48F,
-                                                weight = FontWeight.Medium.weight,
-                                                alignment = "center",
-                                                constraints = Constraints(
-                                                    width = Constraints.FILL_MAX
-                                                )
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        ),
-                        floatingComponent = Component(
-                            id = SnappierButtonComponent.ID,
-                            contents = listOf(
-                                Content(
-                                    events = listOf(
-                                        Event(
-                                            trigger = EventTrigger.OnClick,
-                                            action = Action(
-                                                data = "app://do-something",
-                                                type = ActionType.LocalNavigation
-                                            )
-                                        )
-                                    ),
-                                    buttons = listOf(
-                                        ButtonData(
-                                            color = "#cfda10",
-                                            backgroundColor = "#313131",
-                                            title = "Floating content",
-                                            events = listOf(
-                                                Event(
-                                                    trigger = EventTrigger.OnClick,
-                                                    action = Action(
-                                                        data = "app://do-something",
-                                                        type = ActionType.LocalNavigation
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        ),
-                        isNavigationDrawerLayout = true,
-                        topBar = TopBarData(
-                            backgroundColor = "#ff9800",
-                            title = TextData(
-                                text = "Top Bar App Name",
-                                size = 24F,
-                                weight = 700,
-                                color = "#000000"
-                            ),
-                            icons = listOf(
-                                IconData(
-                                    size = 24F,
-                                    token = "favorite",
-                                    color = "#00eeFa",
-                                    events = listOf(
-                                        Event(
-                                            trigger = EventTrigger.OnClick,
-                                            action = Action(
-                                                data = "app://favorite",
-                                                type = ActionType.LocalNavigation
-                                            )
-                                        )
-                                    )
-                                ),
-                                IconData(
-                                    size = 24F,
-                                    token = "settings",
-                                    color = "#323232",
-                                    events = listOf(
-                                        Event(
-                                            trigger = EventTrigger.OnClick,
-                                            action = Action(
-                                                data = "app://settings",
-                                                type = ActionType.LocalNavigation
-                                            )
-                                        )
-                                    )
-                                ),
-                                IconData(
-                                    size = 24F,
-                                    token = "phone",
-                                    color = "#000000",
-                                    events = listOf(
-                                        Event(
-                                            trigger = EventTrigger.OnClick,
-                                            action = Action(
-                                                data = "app://call",
-                                                type = ActionType.LocalNavigation
-                                            )
-                                        )
-                                    )
-                                )
-                            ),
-                            navigationIcon = IconData(
-                                size = 24F,
-                                token = "menu",
-                                color = "#1A9a32"
-                            )
-                        ),
-                        navigationItems = listOf(
-                            NavigationItem(
-                                action = Action(),
-                                label = "Screen 1",
-                                color = "#654321",
-                                icon = IconData(
-                                    size = 32F,
-                                    token = "home",
-                                    color = "#987654"
-                                )
-                            ),
-                            NavigationItem(
-                                action = Action(),
-                                label = "Screen 2",
-                                color = "#420690",
-                                icon = IconData(
-                                    size = 32F,
-                                    token = "build",
-                                    color = "#987314"
-                                )
-                            )
-                        )
-                    )
-                )
-            )
-        )
+        AnimatedVisibility(loading) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        }
 
-        snappier.draw(data)
+        // Sample content data from API
+        AnimatedVisibility(!loading) {
+            if (sampleComponent != null) {
+                snappier.draw(sampleComponent!!)
+            } else {
+                Text("Failed to get sample Component from API")
+            }
+        }
     }
 }

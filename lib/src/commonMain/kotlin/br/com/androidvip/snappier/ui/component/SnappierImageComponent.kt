@@ -22,7 +22,7 @@ import br.com.androidvip.snappier.domain.component.SnappierComponentData
 import br.com.androidvip.snappier.domain.component.SnappierObservableComponent
 import br.com.androidvip.snappier.domain.component.base.Event
 import br.com.androidvip.snappier.domain.component.base.EventTrigger
-import br.com.androidvip.snappier.ui.component.data.ImageData
+import br.com.androidvip.snappier.domain.component.data.ImageData
 import br.com.androidvip.snappier.ui.utils.composeColor
 import br.com.androidvip.snappier.ui.utils.contentScale
 import com.seiko.imageloader.model.ImageAction

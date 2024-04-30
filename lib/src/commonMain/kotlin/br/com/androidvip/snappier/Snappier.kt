@@ -15,11 +15,29 @@ import br.com.androidvip.snappier.domain.component.Component
 import br.com.androidvip.snappier.domain.component.SnappierComponent
 import br.com.androidvip.snappier.domain.component.SnappierComponentRegisterer
 import br.com.androidvip.snappier.domain.component.base.Event
+import br.com.androidvip.snappier.ui.component.SnappierButtonComponent
+import br.com.androidvip.snappier.ui.component.SnappierCardComponent
+import br.com.androidvip.snappier.ui.component.SnappierIconComponent
+import br.com.androidvip.snappier.ui.component.SnappierImageComponent
+import br.com.androidvip.snappier.ui.component.SnappierScaffoldComponent
+import br.com.androidvip.snappier.ui.component.SnappierTextComponent
+import br.com.androidvip.snappier.ui.component.SnappierVideoComponent
 
 class Snappier : EventObserver {
     private val registerer by lazy { SnappierComponentRegisterer }
 
     var customObserver: EventObserver? = null
+
+    init {
+        // Register default/sample components
+        register(SnappierButtonComponent())
+        register(SnappierScaffoldComponent())
+        register(SnappierCardComponent())
+        register(SnappierImageComponent())
+        register(SnappierTextComponent())
+        register(SnappierIconComponent())
+        register(SnappierVideoComponent())
+    }
 
     @Composable
     fun draw(component: Component) {

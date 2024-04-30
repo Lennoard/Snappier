@@ -50,6 +50,25 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
 
             implementation(libs.kotlinx.serialization.json)
+
+            implementation(libs.bundles.ktor.common)
+        }
+
+        androidMain.dependencies {
+            implementation(libs.kotlinx.coroutines.android)
+            implementation(libs.ktor.client.okhttp)
+        }
+
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
+
+        jsMain.dependencies {
+            implementation(libs.ktor.client.js)
+        }
+
+        desktopMain.dependencies {
+            implementation(libs.ktor.client.apache5)
         }
     }
 }

@@ -1,4 +1,4 @@
-package br.com.androidvip.snappier.ui.component.data
+package br.com.androidvip.snappier.domain.component.data
 
 import br.com.androidvip.snappier.domain.component.base.Event
 
@@ -7,6 +7,5 @@ data class IconData(
     val token: String,
     val color: String,
     val events: List<Event> = emptyList(),
-    val description: String? = null,
-    override val alignment: String? = null
+    val description: String? = null
 ) : BaseComponentData()

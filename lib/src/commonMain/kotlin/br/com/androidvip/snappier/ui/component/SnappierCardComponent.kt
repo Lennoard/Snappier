@@ -16,7 +16,7 @@ import br.com.androidvip.snappier.domain.component.SnappierComponentData
 import br.com.androidvip.snappier.domain.component.SnappierObservableComponent
 import br.com.androidvip.snappier.domain.component.base.Content
 import br.com.androidvip.snappier.domain.component.base.EventTrigger
-import br.com.androidvip.snappier.ui.component.data.CardData
+import br.com.androidvip.snappier.domain.component.data.CardData
 import br.com.androidvip.snappier.ui.utils.composeColor
 
 class SnappierCardComponent : SnappierObservableComponent("snappier_card") {
