@@ -1,9 +1,9 @@
 package br.com.androidvip.snappier.domain.component.scaffold
 
-import br.com.androidvip.snappier.ui.component.data.BaseComponentData
+import br.com.androidvip.snappier.domain.component.data.BaseComponentData
 
 data class BottomBarData(
-    val backgroundColor: String? = null,
-    val iconColor: String? = null,
-    val selectedIconColor: String? = null
+    val backgroundColor: String?,
+    val iconColor: String?,
+    val selectedIconColor: String
 ) : BaseComponentData()

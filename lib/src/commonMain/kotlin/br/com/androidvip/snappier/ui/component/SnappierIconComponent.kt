@@ -49,7 +49,7 @@ import br.com.androidvip.snappier.domain.component.SnappierComponentData
 import br.com.androidvip.snappier.domain.component.SnappierObservableComponent
 import br.com.androidvip.snappier.domain.component.base.Event
 import br.com.androidvip.snappier.domain.component.base.EventTrigger
-import br.com.androidvip.snappier.ui.component.data.IconData
+import br.com.androidvip.snappier.domain.component.data.IconData
 import br.com.androidvip.snappier.ui.utils.composeColor
 
 class SnappierIconComponent : SnappierObservableComponent("snappier_icon") {

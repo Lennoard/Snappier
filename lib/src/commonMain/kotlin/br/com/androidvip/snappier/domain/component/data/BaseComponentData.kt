@@ -1,11 +1,10 @@
-package br.com.androidvip.snappier.ui.component.data
+package br.com.androidvip.snappier.domain.component.data
 
 import br.com.androidvip.snappier.domain.component.base.Constraints
 
 /**
  * Base class for component data abstractions
  *
- * @param events list of [Event]s this component is interested in, can be empty.
  * @param constraints specific [Constraints] this component might have, can be `null` indicating
  * the component will grow to whatever the renderer defaults to.
  * @param alignment specific alignment this component might have, can be `null` indicating

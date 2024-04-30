@@ -7,7 +7,9 @@ enum class ActionType {
     ShowShortMessage
     ;
 
-    fun parse(name: String): ActionType? {
-        return entries.firstOrNull { name.lowercase() == it.name.lowercase() }
+    companion object {
+        fun parse(name: String): ActionType? {
+            return entries.firstOrNull { name.lowercase() == it.name.lowercase() }
+        }
     }
 }

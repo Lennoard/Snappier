@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import br.com.androidvip.snappier.data.VideoCacheController
-import br.com.androidvip.snappier.ui.component.data.VideoData
+import br.com.androidvip.snappier.domain.component.data.VideoData
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem

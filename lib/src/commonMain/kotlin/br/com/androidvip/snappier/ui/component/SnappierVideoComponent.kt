@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.dp
 import br.com.androidvip.snappier.domain.component.SnappierComponentData
 import br.com.androidvip.snappier.domain.component.SnappierObservableComponent
 import br.com.androidvip.snappier.domain.component.base.EventTrigger
+import br.com.androidvip.snappier.domain.component.data.VideoData
 import br.com.androidvip.snappier.ui.NativeVideoPlayer
-import br.com.androidvip.snappier.ui.component.data.VideoData
 
 class SnappierVideoComponent : SnappierObservableComponent("snappier_video") {
 
