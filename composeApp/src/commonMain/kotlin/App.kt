@@ -15,7 +15,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import br.com.androidvip.snappier.Snappier
-import br.com.androidvip.snappier.domain.communication.EventObserver
 import br.com.androidvip.snappier.domain.component.Component
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -40,7 +39,7 @@ fun App() {
         }
     }
     val snappier = Snappier().apply {
-        customObserver = EventObserver { event ->
+        addObserver { event ->
             println("Received event: $event")
         }
     }
@@ -51,6 +50,8 @@ fun App() {
             runCatching {
                 // To test this, go to /api and run "npm run start"
                 sampleComponent = client.get("http://localhost:8080/api").body()
+            }.onFailure {
+                it.printStackTrace()
             }
             loading = false
             client.close()
