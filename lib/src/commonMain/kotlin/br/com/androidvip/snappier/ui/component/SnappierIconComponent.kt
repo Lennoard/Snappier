@@ -56,7 +56,7 @@ class SnappierIconComponent : SnappierObservableComponent("snappier_icon") {
     @Composable
     override fun render(data: SnappierComponentData, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.let { content ->
-            content.icons.firstOrNull()?.let { icon ->
+            content.icons?.firstOrNull()?.let { icon ->
                 SnappierIcon(
                     onClick = { emmitEvent(it) },
                     icon = icon

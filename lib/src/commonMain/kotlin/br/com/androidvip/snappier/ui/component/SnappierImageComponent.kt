@@ -34,7 +34,7 @@ class SnappierImageComponent : SnappierObservableComponent("snappier_image") {
     @Composable
     override fun render(data: SnappierComponentData, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.let { content ->
-            val image = content.images.firstOrNull() ?: ImageData()
+            val image = content.images?.firstOrNull() ?: ImageData()
             SnappierImage(
                 image = image,
                 onClick = { emmitEvent(it) },

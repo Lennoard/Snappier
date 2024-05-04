@@ -24,14 +24,14 @@ class SnappierCardComponent : SnappierObservableComponent("snappier_card") {
     @Composable
     override fun render(data: SnappierComponentData, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.let { content ->
-            val card = content.cards.firstOrNull() ?: CardData(Content())
+            val card = content.cards?.firstOrNull() ?: CardData(Content())
             val cardContent = card.content
             val border = card.border
             val stroke = card.stroke
 
             OutlinedCard(
                 onClick = {
-                    content.events.find { it.trigger == EventTrigger.OnClick }?.let { event ->
+                    content.events?.find { it.trigger == EventTrigger.OnClick }?.let { event ->
                         emmitEvent(event)
                     }
                 },
@@ -62,14 +62,14 @@ class SnappierCardComponent : SnappierObservableComponent("snappier_card") {
                 }
             ) {
                 Column {
-                    cardContent.images.firstOrNull()?.let { imageData ->
+                    cardContent.images?.firstOrNull()?.let { imageData ->
                         SnappierImage(imageData)
                     }
 
                     Column(
                         modifier = Modifier.padding(24.dp)
                     ) {
-                        cardContent.texts.forEach { textData ->
+                        cardContent.texts?.forEach { textData ->
                             SnappierText(null, textData)
                         }
 
@@ -77,7 +77,7 @@ class SnappierCardComponent : SnappierObservableComponent("snappier_card") {
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.End
                         ) {
-                            cardContent.buttons.forEach { buttonData ->
+                            cardContent.buttons?.forEach { buttonData ->
                                 SnappierButton(
                                     onClick = {
                                         buttonData.events.find {
