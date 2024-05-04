@@ -11,7 +11,7 @@ plugins {
 val snappierGitHubUser: String by project
 val snappierGitHubToken: String by project
 val libraryGroup = "br.com.androidvip.snappier"
-val libraryVersion = "0.1.0"
+val libraryVersion = "0.2.0"
 
 group = libraryGroup
 version = libraryVersion
