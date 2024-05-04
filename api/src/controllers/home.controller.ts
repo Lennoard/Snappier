@@ -15,7 +15,7 @@ const json = {
                     text: "Scaffold content from Snappier API!",
                     size: 48,
                     weight: 700,
-                    alignment: "cente",
+                    alignment: "center",
                     constraints: {
                       width: -1
                     }

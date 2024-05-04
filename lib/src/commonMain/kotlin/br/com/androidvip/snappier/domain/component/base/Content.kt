@@ -31,11 +31,11 @@ data class Content(
     val border: BorderData? = null,
     val constraints: Constraints? = null,
     val parameters: JsonElement = buildJsonObject { },
-    val images: List<ImageData> = emptyList(),
-    val videos: List<VideoData> = emptyList(),
-    val texts: List<TextData> = emptyList(),
-    val buttons: List<ButtonData> = emptyList(),
-    val icons: List<IconData> = emptyList(),
-    val cards: List<CardData> = emptyList(),
-    val events: List<Event> = emptyList()
+    val images: List<ImageData>? = emptyList(),
+    val videos: List<VideoData>? = emptyList(),
+    val texts: List<TextData>? = emptyList(),
+    val buttons: List<ButtonData>? = emptyList(),
+    val icons: List<IconData>? = emptyList(),
+    val cards: List<CardData>? = emptyList(),
+    val events: List<Event>? = emptyList()
 )

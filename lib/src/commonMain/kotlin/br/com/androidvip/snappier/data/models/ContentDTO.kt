@@ -15,11 +15,11 @@ data class ContentDTO(
     val border: BorderDTO? = null,
     val constraints: ConstraintsDTO? = null,
     val parameters: JsonElement = buildJsonObject { },
-    val images: List<ImageDTO> = emptyList(),
-    val videos: List<VideoDTO> = emptyList(),
-    val texts: List<TextDTO> = emptyList(),
-    val buttons: List<ButtonDTO> = emptyList(),
-    val icons: List<IconDTO> = emptyList(),
-    val cards: List<CardDTO> = emptyList(),
-    val events: List<EventDTO> = emptyList()
+    val images: List<ImageDTO>? = null,
+    val videos: List<VideoDTO>? = null,
+    val texts: List<TextDTO>? = null,
+    val buttons: List<ButtonDTO>? = null,
+    val icons: List<IconDTO>? = null,
+    val cards: List<CardDTO>? = null,
+    val events: List<EventDTO>? = null
 )

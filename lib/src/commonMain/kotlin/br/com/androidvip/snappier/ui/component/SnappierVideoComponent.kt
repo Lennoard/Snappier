@@ -20,7 +20,7 @@ class SnappierVideoComponent : SnappierObservableComponent("snappier_video") {
     @Composable
     override fun render(data: SnappierComponentData, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.let { content ->
-            content.videos.firstOrNull()?.let { videoData ->
+            content.videos?.firstOrNull()?.let { videoData ->
                 NativeVideoPlayer(
                     modifier = videoData.constraintsModifier(),
                     videoData = videoData

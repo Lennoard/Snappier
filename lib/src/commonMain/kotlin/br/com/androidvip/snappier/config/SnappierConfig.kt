@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
@@ -56,7 +57,7 @@ class SnappierConfig internal constructor(
 
         val defaultConfig = SnappierConfig(
             onLoading = { progress ->
-                Box(modifier = Modifier.fillMaxSize()) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Text("Loading: $progress%")
                 }
             }

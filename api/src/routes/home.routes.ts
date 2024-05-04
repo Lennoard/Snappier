@@ -5,10 +5,10 @@ class HomeRoutes {
   router = Router();
 
   constructor() {
-    this.intializeRoutes();
+    this.initializeRoutes();
   }
 
-  intializeRoutes() {
+  initializeRoutes() {
     this.router.get("/", home);
   }
 }

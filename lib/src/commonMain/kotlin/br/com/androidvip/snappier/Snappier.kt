@@ -11,6 +11,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import br.com.androidvip.snappier.config.SnappierConfig
+import br.com.androidvip.snappier.data.mappers.ComponentMapper
+import br.com.androidvip.snappier.data.models.ComponentDTO
 import br.com.androidvip.snappier.domain.communication.CommunicationReceiver
 import br.com.androidvip.snappier.domain.communication.Communicator
 import br.com.androidvip.snappier.domain.communication.EventDispatcher
@@ -29,6 +31,7 @@ import br.com.androidvip.snappier.ui.component.SnappierVideoComponent
 import io.ktor.client.call.body
 import io.ktor.client.plugins.onDownload
 import io.ktor.client.request.request
+import io.ktor.client.request.url
 
 fun Snappier(block: SnappierConfig.() -> Unit): Snappier {
     val config = SnappierConfig().apply(block)
@@ -107,11 +110,13 @@ class Snappier(private val config: SnappierConfig = SnappierConfig.defaultConfig
             runCatching {
                 val request = config.httpClient.request {
                     method = config.httpMethod
+                    url(url)
                     onDownload { bytesSentTotal, contentLength ->
                         progress = ((bytesSentTotal / contentLength) * 100).toInt()
                     }
                 }
-                component = request.body()
+                val dto = request.body<ComponentDTO>()
+                component = ComponentMapper.map(dto)
             }.onFailure {
                 error = it
             }
