@@ -13,6 +13,7 @@ object ButtonMapper : BaseMapper<ButtonData, ButtonDTO> {
             border = dto.border?.let(BorderMapper::map),
             shadow = dto.shadow?.let(ShadowMapper::map),
             stroke = dto.stroke?.let(StrokeMapper::map),
+            icon = dto.icon?.let(IconMapper::map),
             constraints = dto.constraints?.let(ConstraintsMapper::map),
             alignment = dto.alignment
         )

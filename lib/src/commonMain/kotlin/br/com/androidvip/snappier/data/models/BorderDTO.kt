@@ -8,6 +8,5 @@ data class BorderDTO(
     val topRight: Float = 0F,
     val bottomRight: Float = 0F,
     val bottomLeft: Float = 0F,
-    val constraints: ConstraintsDTO? = null,
-    val alignment: String? = null
+    val percent: Float? = null
 )

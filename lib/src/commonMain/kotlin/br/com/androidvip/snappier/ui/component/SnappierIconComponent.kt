@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.CreditCardOff
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Edit
@@ -20,6 +21,7 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Flight
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LocationOn
@@ -31,13 +33,19 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.PriceChange
+import androidx.compose.material.icons.filled.QuestionMark
+import androidx.compose.material.icons.filled.RateReview
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.ShoppingBag
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.TaxiAlert
 import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.material.icons.filled.Wallet
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -94,12 +102,16 @@ internal fun getIconVectorByName(name: String): ImageVector? {
         "arrow_drop_down", "arrowdropdown" -> Icons.Default.ArrowDropDown
         "build", "tools" -> Icons.Default.Build
         "call" -> Icons.Default.Call
+        "cart", "shopping_cart", "shoppingcart" -> Icons.Default.ShoppingCart
         "check" -> Icons.Default.Check
         "close" -> Icons.Default.Close
+        "coupon" -> Icons.Default.PriceChange
         "create" -> Icons.Default.Create
+        "credit_card_off" -> Icons.Default.CreditCardOff
         "clear" -> Icons.Default.Clear
         "check_circle", "checkcircle" -> Icons.Default.CheckCircle
         "delete" -> Icons.Default.Delete
+        "discount" -> Icons.Default.ShoppingBag
         "done" -> Icons.Default.Done
         "edit" -> Icons.Default.Edit
         "email" -> Icons.Default.Email
@@ -115,15 +127,19 @@ internal fun getIconVectorByName(name: String): ImageVector? {
         "person" -> Icons.Default.Person
         "phone" -> Icons.Default.Phone
         "place" -> Icons.Default.Place
-        "notifications" -> Icons.Default.Notifications
+        "notifications", "notification" -> Icons.Default.Notifications
+        "flight" -> Icons.Default.Flight
         "play" -> Icons.Default.PlayArrow
+        "rate" -> Icons.Default.RateReview
         "refresh" -> Icons.Default.Refresh
         "search" -> Icons.Default.Search
         "settings" -> Icons.Default.Settings
         "share" -> Icons.Default.Share
-        "cart", "shopping_cart", "shoppingcart" -> Icons.Default.ShoppingCart
+        "taxi_alert" -> Icons.Default.TaxiAlert
         "start" -> Icons.Default.Star
         "thumbup", "thumb_up" -> Icons.Default.ThumbUp
+        "question", "questionmark" -> Icons.Default.QuestionMark
+        "wallet" -> Icons.Default.Wallet
         "warning" -> Icons.Default.Warning
         else -> null
     }

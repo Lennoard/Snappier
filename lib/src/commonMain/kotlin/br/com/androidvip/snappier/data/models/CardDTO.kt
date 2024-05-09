@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CardDTO(
-    val content: ContentDTO,
+    val content: ContentDTO = ContentDTO(),
     val backgroundColor: String = "",
     val shadow: ShadowDTO? = null,
     val stroke: StrokeDTO? = null,

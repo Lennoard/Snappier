@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class VideoDTO(
-    val url: String,
+    val url: String = "",
     val description: String? = null,
     val resourceName: String? = null,
     val autoPlay: Boolean = false,

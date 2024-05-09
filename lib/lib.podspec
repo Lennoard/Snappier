@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'lib'
-    spec.version                  = '0.2.0'
+    spec.version                  = '1.0.0'
     spec.homepage                 = 'github.com/Lennoard/Snappier'
     spec.source                   = { :http=> ''}
     spec.authors                  = ''

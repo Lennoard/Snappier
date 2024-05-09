@@ -11,7 +11,7 @@ plugins {
 val snappierGitHubUser: String by project
 val snappierGitHubToken: String by project
 val libraryGroup = "br.com.androidvip.snappier"
-val libraryVersion = "0.2.0"
+val libraryVersion = "1.0.0"
 
 group = libraryGroup
 version = libraryVersion
@@ -66,6 +66,7 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+            implementation(libs.compose.material.icons.extended)
 
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)
