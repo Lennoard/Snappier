@@ -9,7 +9,8 @@ object BorderMapper : BaseMapper<BorderData, BorderDTO> {
             topLeft = dto.topLeft,
             topRight = dto.topRight,
             bottomRight = dto.bottomRight,
-            bottomLeft = dto.bottomLeft
+            bottomLeft = dto.bottomLeft,
+            percent = dto.percent
         )
     }
 }

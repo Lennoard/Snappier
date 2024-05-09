@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class IconDTO(
-    val token: String,
+    val token: String = "",
     val size: Float = 24F,
     val color: String = "#000000",
     val events: List<EventDTO> = emptyList(),

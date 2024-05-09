@@ -91,12 +91,16 @@ private fun ImageData?.imageModifier(
         result = constraintsModifier(onClick, onLongClick, onDraw)
 
         val shape = if (this@imageModifier?.border != null) {
-            RoundedCornerShape(
-                topStart = border.topLeft,
-                topEnd = border.topRight,
-                bottomStart = border.bottomLeft,
-                bottomEnd = border.bottomRight
-            )
+            if (border.percent != null) {
+                RoundedCornerShape(percent = border.percent.toInt())
+            } else {
+                RoundedCornerShape(
+                    topStart = border.topLeft,
+                    topEnd = border.topRight,
+                    bottomStart = border.bottomLeft,
+                    bottomEnd = border.bottomRight
+                )
+            }
         } else {
             RectangleShape
         }

@@ -10,6 +10,7 @@ data class ButtonDTO(
     val border: BorderDTO? = null,
     val shadow: ShadowDTO? = null,
     val stroke: StrokeDTO? = null,
+    val icon: IconDTO? = null,
     val constraints: ConstraintsDTO? = null,
     val alignment: String? = null,
     val events: List<EventDTO> = emptyList()

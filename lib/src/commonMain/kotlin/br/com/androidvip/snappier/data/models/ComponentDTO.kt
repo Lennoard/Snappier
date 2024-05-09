@@ -5,7 +5,7 @@ import kotlinx.serialization.json.JsonElement
 
 @Serializable
 data class ComponentDTO(
-    val id: String,
-    val contents: List<ContentDTO>,
+    val id: String = "",
+    val contents: List<ContentDTO> = emptyList(),
     val parameters: JsonElement? = null
 )

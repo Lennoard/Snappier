@@ -11,7 +11,7 @@ import kotlinx.serialization.encoding.Encoder
 
 @Serializable
 data class EventDTO(
-    val action: ActionDTO,
+    val action: ActionDTO = ActionDTO(),
     @Serializable(with = EventTriggerSerializer::class)
     val trigger: EventTrigger? = null,
     val customTrigger: String? = null
