@@ -23,6 +23,7 @@ import br.com.androidvip.snappier.domain.component.SnappierComponentRegisterer
 import br.com.androidvip.snappier.domain.component.base.Event
 import br.com.androidvip.snappier.ui.component.SnappierButtonComponent
 import br.com.androidvip.snappier.ui.component.SnappierCardComponent
+import br.com.androidvip.snappier.ui.component.SnappierFloatingActionButtonComponent
 import br.com.androidvip.snappier.ui.component.SnappierIconComponent
 import br.com.androidvip.snappier.ui.component.SnappierImageComponent
 import br.com.androidvip.snappier.ui.component.SnappierScaffoldComponent
@@ -46,6 +47,7 @@ class Snappier(private val config: SnappierConfig = SnappierConfig.defaultConfig
     init {
         // Register default/sample components
         register(SnappierButtonComponent())
+        register(SnappierFloatingActionButtonComponent())
         register(SnappierScaffoldComponent())
         register(SnappierCardComponent())
         register(SnappierImageComponent())

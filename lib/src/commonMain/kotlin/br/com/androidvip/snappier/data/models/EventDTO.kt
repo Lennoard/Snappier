@@ -8,13 +8,15 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonElement
 
 @Serializable
 data class EventDTO(
     val action: ActionDTO = ActionDTO(),
     @Serializable(with = EventTriggerSerializer::class)
     val trigger: EventTrigger? = null,
-    val customTrigger: String? = null
+    val customTrigger: String? = null,
+    val extras: JsonElement? = null
 )
 
 object EventTriggerSerializer : KSerializer<EventTrigger?> {

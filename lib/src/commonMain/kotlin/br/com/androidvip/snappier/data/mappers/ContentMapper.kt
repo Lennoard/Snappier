@@ -14,6 +14,7 @@ object ContentMapper : BaseMapper<Content, ContentDTO> {
             stroke = dto.stroke?.let(StrokeMapper::map),
             shadow = dto.shadow?.let(ShadowMapper::map),
             border = dto.border?.let(BorderMapper::map),
+            fab = dto.fab?.let(FloatingActionButtonMapper::map),
             constraints = dto.constraints?.let(ConstraintsMapper::map),
             images = dto.images?.map(ImageMapper::map),
             icons = dto.icons?.map(IconMapper::map),

@@ -36,7 +36,7 @@ class SnappierTextComponent : SnappierObservableComponent(ID) {
 }
 
 @Composable
-internal fun SnappierText(
+fun SnappierText(
     content: Content?,
     text: TextData,
     onClick: ((Event) -> Unit)? = null,

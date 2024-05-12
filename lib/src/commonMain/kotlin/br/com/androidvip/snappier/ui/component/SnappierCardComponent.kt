@@ -51,12 +51,16 @@ class SnappierCardComponent : SnappierObservableComponent("snappier_card") {
                     CardDefaults.outlinedCardBorder()
                 },
                 shape = if (border != null) {
-                    RoundedCornerShape(
-                        topStart = border.topLeft,
-                        topEnd = border.topRight,
-                        bottomStart = border.bottomLeft,
-                        bottomEnd = border.bottomRight
-                    )
+                    if (border.percent != null) {
+                        RoundedCornerShape(percent = border.percent.toInt())
+                    } else {
+                        RoundedCornerShape(
+                            topStart = border.topLeft,
+                            topEnd = border.topRight,
+                            bottomStart = border.bottomLeft,
+                            bottomEnd = border.bottomRight
+                        )
+                    }
                 } else {
                     CardDefaults.outlinedShape
                 }

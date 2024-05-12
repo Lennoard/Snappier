@@ -5,6 +5,7 @@ import br.com.androidvip.snappier.domain.component.SnappierComponentData
 import br.com.androidvip.snappier.domain.component.data.BorderData
 import br.com.androidvip.snappier.domain.component.data.ButtonData
 import br.com.androidvip.snappier.domain.component.data.CardData
+import br.com.androidvip.snappier.domain.component.data.FloatingActionButtonData
 import br.com.androidvip.snappier.domain.component.data.IconData
 import br.com.androidvip.snappier.domain.component.data.ImageData
 import br.com.androidvip.snappier.domain.component.data.ShadowData
@@ -30,6 +31,7 @@ data class Content(
     val shadow: ShadowData? = null,
     val border: BorderData? = null,
     val constraints: Constraints? = null,
+    val fab: FloatingActionButtonData? = null,
     val parameters: JsonElement = buildJsonObject { },
     val images: List<ImageData>? = emptyList(),
     val videos: List<VideoData>? = emptyList(),
