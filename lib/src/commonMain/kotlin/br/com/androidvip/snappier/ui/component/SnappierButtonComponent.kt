@@ -24,9 +24,6 @@ class SnappierButtonComponent : SnappierObservableComponent(ID) {
     override fun render(data: SnappierComponentData, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.let { content ->
             content.buttons?.firstOrNull()?.let { button ->
-                extras?.let {
-                    Text("I received some extras: $extras")
-                }
                 SnappierButton(
                     onClick = {
                         content.events?.find { it.trigger == EventTrigger.OnClick }?.let { event ->
@@ -46,7 +43,7 @@ class SnappierButtonComponent : SnappierObservableComponent(ID) {
 }
 
 @Composable
-internal fun SnappierButton(onClick: () -> Unit, content: Content?, button: ButtonData) {
+fun SnappierButton(onClick: () -> Unit, content: Content?, button: ButtonData) {
     val border = button.border
     val stroke = button.stroke
     Button(
@@ -68,12 +65,16 @@ internal fun SnappierButton(onClick: () -> Unit, content: Content?, button: Butt
             null
         },
         shape = if (border != null) {
-            RoundedCornerShape(
-                topStart = border.topLeft,
-                topEnd = border.topRight,
-                bottomStart = border.bottomLeft,
-                bottomEnd = border.bottomRight
-            )
+            if (border.percent != null) {
+                RoundedCornerShape(percent = border.percent.toInt())
+            } else {
+                RoundedCornerShape(
+                    topStart = border.topLeft,
+                    topEnd = border.topRight,
+                    bottomStart = border.bottomLeft,
+                    bottomEnd = border.bottomRight
+                )
+            }
         } else {
             ButtonDefaults.shape
         }

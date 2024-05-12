@@ -14,6 +14,7 @@ data class ContentDTO(
     val shadow: ShadowDTO? = null,
     val border: BorderDTO? = null,
     val constraints: ConstraintsDTO? = null,
+    val fab: FloatingActionButtonDTO? = null,
     val parameters: JsonElement = buildJsonObject { },
     val images: List<ImageDTO>? = null,
     val videos: List<VideoDTO>? = null,

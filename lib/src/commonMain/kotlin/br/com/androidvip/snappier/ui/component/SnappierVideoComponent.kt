@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -26,7 +26,7 @@ class SnappierVideoComponent : SnappierObservableComponent("snappier_video") {
                     videoData = videoData
                 )
 
-                SideEffect {
+                LaunchedEffect(Unit) {
                     videoData.events.find { it.trigger == EventTrigger.OnDraw }?.let {
                         emmitEvent(it)
                     }

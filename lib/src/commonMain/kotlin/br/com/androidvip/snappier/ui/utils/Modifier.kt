@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -46,7 +46,7 @@ fun Modifier.snappierModifier(
                     onLongClick = { onLongClick?.invoke(event) }
                 )
 
-                EventTrigger.OnDraw -> SideEffect { onDraw?.invoke(event) }
+                EventTrigger.OnDraw -> LaunchedEffect(Unit) { onDraw?.invoke(event) }
                 else -> {} // NO-OP
             }
         }

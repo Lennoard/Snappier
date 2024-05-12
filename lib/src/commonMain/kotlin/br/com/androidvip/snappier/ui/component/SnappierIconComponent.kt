@@ -75,7 +75,7 @@ class SnappierIconComponent : SnappierObservableComponent("snappier_icon") {
 }
 
 @Composable
-internal fun SnappierIcon(icon: IconData, onClick: ((Event) -> Unit)? = null) {
+fun SnappierIcon(icon: IconData, onClick: ((Event) -> Unit)? = null) {
     getIconVectorByName(icon.token)?.let { vector ->
         IconButton(
             onClick = {

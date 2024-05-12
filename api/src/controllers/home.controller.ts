@@ -26,34 +26,45 @@ const json = {
           }
         ],
         floatingComponent: {
-          id: "snappier_button",
+          id: "snappier_fab",
           contents: [
             {
-              events: [
-                {
-                  trigger: "OnClick",
-                  action: {
-                    data: "app://do-something",
-                    type: "LocalNavigation"
-                  }
-                }
-              ],
-              buttons: [
-                {
-                  color: "#CFDA10",
-                  backgroundColor: "#323232",
-                  title: "Floating content",
+              fab: {
+                backgroundColor: "#FF9800",
+                text: {
+                  text: "Extended action",
+                  size: 16,
+                  color: "#123321",
+                  weight: 600
+                },
+                icon: {
+                  size: 24,
+                  token: "cart",
+                  color: "#00EEFA",
                   events: [
                     {
                       trigger: "OnClick",
                       action: {
-                        data: "app://do-something",
+                        data: "app://cart",
                         type: "LocalNavigation"
                       }
                     }
                   ]
-                }
-              ]
+                },
+                stroke: {
+                  width: 4,
+                  color: "#661142"
+                },
+                events: [
+                  {
+                    trigger: "OnClick",
+                    action: {
+                      data: "app://do-something",
+                      type: "LocalNavigation"
+                    }
+                  }
+                ]
+              }
             }
           ]
         },

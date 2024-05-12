@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -46,7 +46,7 @@ class SnappierImageComponent : SnappierObservableComponent("snappier_image") {
 }
 
 @Composable
-internal fun SnappierImage(
+fun SnappierImage(
     image: ImageData,
     onClick: ((Event) -> Unit)? = null,
     onLongClick: ((Event) -> Unit)? = null,
@@ -146,7 +146,7 @@ private fun ImageData?.constraintsModifier(
                     onLongClick = { onLongClick?.invoke(event) }
                 )
 
-                EventTrigger.OnDraw -> SideEffect { onDraw?.invoke(event) }
+                EventTrigger.OnDraw -> LaunchedEffect(Unit) { onDraw?.invoke(event) }
                 else -> {} // NO-OP
             }
         }
