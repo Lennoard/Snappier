@@ -13,8 +13,7 @@ import br.com.androidvip.snappier.domain.component.data.StrokeData
 import br.com.androidvip.snappier.domain.component.data.TextData
 import br.com.androidvip.snappier.domain.component.data.VideoData
 import br.com.androidvip.snappier.domain.component.scaffold.ScaffoldData
-import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.JsonObject
 
 /**
  * A [SnappierComponent]'s content. Any component can be reasonably
@@ -32,7 +31,7 @@ data class Content(
     val border: BorderData? = null,
     val constraints: Constraints? = null,
     val fab: FloatingActionButtonData? = null,
-    val parameters: JsonElement = buildJsonObject { },
+    val parameters: JsonObject? = null,
     val images: List<ImageData>? = emptyList(),
     val videos: List<VideoData>? = emptyList(),
     val texts: List<TextData>? = emptyList(),

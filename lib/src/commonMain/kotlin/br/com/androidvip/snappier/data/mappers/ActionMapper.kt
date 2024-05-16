@@ -7,7 +7,8 @@ object ActionMapper : BaseMapper<Action, ActionDTO> {
     override fun map(dto: ActionDTO): Action {
         return Action(
             data = dto.data,
-            type = dto.type
+            type = dto.type,
+            extras = dto.extras
         )
     }
 }

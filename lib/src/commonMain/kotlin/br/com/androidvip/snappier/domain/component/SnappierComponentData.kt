@@ -1,7 +1,7 @@
 package br.com.androidvip.snappier.domain.component
 
 import br.com.androidvip.snappier.domain.component.base.Content
-import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
 
 /**
  * Base interface for component data.
@@ -17,5 +17,5 @@ interface SnappierComponentData {
      * Optional parameters needed for the behaviour and/or rendering of
      * the [SnappierComponent] associated with this data.
      */
-    val parameters: JsonElement?
+    val parameters: JsonObject?
 }

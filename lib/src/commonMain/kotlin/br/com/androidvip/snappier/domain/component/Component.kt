@@ -1,7 +1,7 @@
 package br.com.androidvip.snappier.domain.component
 
 import br.com.androidvip.snappier.domain.component.base.Content
-import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
 
 /**
  * This class is the entry point of the serialized "component" JSON.
@@ -9,5 +9,5 @@ import kotlinx.serialization.json.JsonElement
 data class Component(
     val id: String,
     override val contents: List<Content>,
-    override val parameters: JsonElement? = null
+    override val parameters: JsonObject? = null
 ) : SnappierComponentData

@@ -88,10 +88,10 @@ fun SnappierFloatingActionButton(
         shape = shape
     ) {
         fab.text?.let { text ->
-            SnappierText(content, text)
+            SnappierText(null, text)
         }
         fab.icon?.let { icon ->
-            SnappierIcon(icon)
+            SnappierIcon(icon.copy(events = fab.events))
         }
     }
 }

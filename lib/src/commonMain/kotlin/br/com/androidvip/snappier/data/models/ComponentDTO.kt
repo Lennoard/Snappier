@@ -1,11 +1,11 @@
 package br.com.androidvip.snappier.data.models
 
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class ComponentDTO(
     val id: String = "",
     val contents: List<ContentDTO> = emptyList(),
-    val parameters: JsonElement? = null
+    val parameters: JsonObject? = null
 )
