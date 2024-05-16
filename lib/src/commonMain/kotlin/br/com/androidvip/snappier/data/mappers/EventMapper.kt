@@ -8,8 +8,7 @@ object EventMapper : BaseMapper<Event, EventDTO> {
         return Event(
             action = ActionMapper.map(dto.action),
             trigger = dto.trigger,
-            customTrigger = dto.customTrigger,
-            extras = dto.extras
+            customTrigger = dto.customTrigger
         )
     }
 }

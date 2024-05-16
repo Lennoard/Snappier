@@ -1,8 +1,7 @@
 package br.com.androidvip.snappier.data.models
 
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class ContentDTO(
@@ -15,7 +14,7 @@ data class ContentDTO(
     val border: BorderDTO? = null,
     val constraints: ConstraintsDTO? = null,
     val fab: FloatingActionButtonDTO? = null,
-    val parameters: JsonElement = buildJsonObject { },
+    val parameters: JsonObject? = null,
     val images: List<ImageDTO>? = null,
     val videos: List<VideoDTO>? = null,
     val texts: List<TextDTO>? = null,

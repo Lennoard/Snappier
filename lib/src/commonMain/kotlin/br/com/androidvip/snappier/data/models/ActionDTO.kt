@@ -8,12 +8,14 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class ActionDTO(
     val data: String = "",
     @Serializable(with = ActionTypeSerializer::class)
-    val type: ActionType? = null
+    val type: ActionType? = null,
+    val extras: JsonObject? = null
 )
 
 object ActionTypeSerializer : KSerializer<ActionType?> {
