@@ -213,7 +213,7 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
                 },
                 actions = {
                     data.icons?.forEach { icon ->
-                        SnappierIcon(
+                        SnappierIconButton(
                             onClick = {
                                 icon.events.find { it.trigger == EventTrigger.OnClick }?.let {
                                     emmitEvent(it)

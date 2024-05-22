@@ -2,6 +2,8 @@ package br.com.androidvip.snappier.ui.component
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Help
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddCircle
@@ -22,11 +24,14 @@ import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Flight
+import androidx.compose.material.icons.filled.FlightTakeoff
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.LocalShipping
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoneyOffCsred
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
@@ -65,7 +70,7 @@ class SnappierIconComponent : SnappierObservableComponent("snappier_icon") {
     override fun render(data: SnappierComponentData, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.let { content ->
             content.icons?.firstOrNull()?.let { icon ->
-                SnappierIcon(
+                SnappierIconButton(
                     onClick = { emmitEvent(it) },
                     icon = icon
                 )
@@ -75,20 +80,29 @@ class SnappierIconComponent : SnappierObservableComponent("snappier_icon") {
 }
 
 @Composable
-fun SnappierIcon(icon: IconData, onClick: ((Event) -> Unit)? = null) {
+fun SnappierIconButton(icon: IconData, onClick: ((Event) -> Unit)? = null) {
     getIconVectorByName(icon.token)?.let { vector ->
-        IconButton(
-            onClick = {
-                val event = icon.events.find { it.trigger == EventTrigger.OnClick }
-                event?.let { onClick?.invoke(it) }
-            }
-        ) {
+        if (onClick == null) {
             Icon(
                 imageVector = vector,
                 contentDescription = icon.description,
                 tint = icon.color.composeColor(),
                 modifier = Modifier.size(icon.size.dp)
             )
+        } else {
+            IconButton(
+                onClick = {
+                    val event = icon.events.find { it.trigger == EventTrigger.OnClick }
+                    event?.let { onClick(it) }
+                }
+            ) {
+                Icon(
+                    imageVector = vector,
+                    contentDescription = icon.description,
+                    tint = icon.color.composeColor(),
+                    modifier = Modifier.size(icon.size.dp)
+                )
+            }
         }
     }
 }
@@ -100,6 +114,7 @@ internal fun getIconVectorByName(name: String): ImageVector? {
         "add_circle", "addcircle" -> Icons.Default.AddCircle
         "account_box", "accountbox" -> Icons.Default.AccountBox
         "arrow_drop_down", "arrowdropdown" -> Icons.Default.ArrowDropDown
+        "back", "arrow_back" -> Icons.AutoMirrored.Default.ArrowBack
         "build", "tools" -> Icons.Default.Build
         "call" -> Icons.Default.Call
         "cart", "shopping_cart", "shoppingcart" -> Icons.Default.ShoppingCart
@@ -118,6 +133,7 @@ internal fun getIconVectorByName(name: String): ImageVector? {
         "face" -> Icons.Default.Face
         "favorite" -> Icons.Default.Favorite
         "favorite_border", "favoriteborder" -> Icons.Default.FavoriteBorder
+        "help" -> Icons.AutoMirrored.Filled.Help
         "home" -> Icons.Default.Home
         "info" -> Icons.Default.Info
         "location" -> Icons.Default.LocationOn
@@ -129,12 +145,15 @@ internal fun getIconVectorByName(name: String): ImageVector? {
         "place" -> Icons.Default.Place
         "notifications", "notification" -> Icons.Default.Notifications
         "flight" -> Icons.Default.Flight
+        "payment_pending" -> Icons.Default.MoneyOffCsred
         "play" -> Icons.Default.PlayArrow
         "rate" -> Icons.Default.RateReview
         "refresh" -> Icons.Default.Refresh
+        "order_sent" -> Icons.Default.FlightTakeoff
         "search" -> Icons.Default.Search
         "settings" -> Icons.Default.Settings
         "share" -> Icons.Default.Share
+        "ship_pending" -> Icons.Default.LocalShipping
         "taxi_alert" -> Icons.Default.TaxiAlert
         "start" -> Icons.Default.Star
         "thumbup", "thumb_up" -> Icons.Default.ThumbUp

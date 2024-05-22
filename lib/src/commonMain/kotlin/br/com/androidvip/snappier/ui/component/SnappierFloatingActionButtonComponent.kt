@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import br.com.androidvip.snappier.domain.component.SnappierComponentData
 import br.com.androidvip.snappier.domain.component.SnappierObservableComponent
-import br.com.androidvip.snappier.domain.component.base.Content
 import br.com.androidvip.snappier.domain.component.base.EventTrigger
 import br.com.androidvip.snappier.domain.component.data.FloatingActionButtonData
 import br.com.androidvip.snappier.ui.utils.composeColor
@@ -28,7 +27,6 @@ class SnappierFloatingActionButtonComponent : SnappierObservableComponent(ID) {
                             emmitEvent(event)
                         }
                     },
-                    content = content,
                     fab = fab
                 )
             }
@@ -43,7 +41,6 @@ class SnappierFloatingActionButtonComponent : SnappierObservableComponent(ID) {
 @Composable
 fun SnappierFloatingActionButton(
     onClick: () -> Unit,
-    content: Content?,
     fab: FloatingActionButtonData
 ) {
     val border = fab.border
@@ -91,7 +88,7 @@ fun SnappierFloatingActionButton(
             SnappierText(null, text)
         }
         fab.icon?.let { icon ->
-            SnappierIcon(icon.copy(events = fab.events))
+            SnappierIconButton(icon.copy(events = fab.events))
         }
     }
 }
