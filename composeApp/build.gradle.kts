@@ -114,10 +114,17 @@ android {
     }
 
     dependencies {
-        debugImplementation(libs.compose.ui.tooling)
         implementation(libs.compose.ui.tooling.preview)
+        implementation(libs.androidx.activity.ktx)
+        implementation(libs.androidx.activity.compose)
+
+        implementation(compose.runtime)
+        implementation(compose.foundation)
+        implementation(compose.material3)
+        implementation(compose.ui)
 
         coreLibraryDesugaring(libs.desugar.jdk.libs)
+        debugImplementation(libs.compose.ui.tooling)
     }
 }
 

@@ -3,7 +3,9 @@ package br.com.androidvip.snappier.ui.component
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Feed
 import androidx.compose.material.icons.automirrored.filled.Help
+import androidx.compose.material.icons.automirrored.filled.Message
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddCircle
@@ -25,6 +27,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Flight
 import androidx.compose.material.icons.filled.FlightTakeoff
+import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LocalShipping
@@ -39,6 +42,7 @@ import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.PriceChange
+import androidx.compose.material.icons.filled.Public
 import androidx.compose.material.icons.filled.QuestionMark
 import androidx.compose.material.icons.filled.RateReview
 import androidx.compose.material.icons.filled.Refresh
@@ -133,12 +137,15 @@ internal fun getIconVectorByName(name: String): ImageVector? {
         "face" -> Icons.Default.Face
         "favorite" -> Icons.Default.Favorite
         "favorite_border", "favoriteborder" -> Icons.Default.FavoriteBorder
-        "help" -> Icons.AutoMirrored.Filled.Help
+        "feed" -> Icons.AutoMirrored.Default.Feed
+        "friends", "group" -> Icons.Default.Group
+        "help" -> Icons.AutoMirrored.Default.Help
         "home" -> Icons.Default.Home
         "info" -> Icons.Default.Info
         "location" -> Icons.Default.LocationOn
         "lock" -> Icons.Default.Lock
         "menu" -> Icons.Default.Menu
+        "message" -> Icons.AutoMirrored.Default.Message
         "more" -> Icons.Default.MoreVert
         "person" -> Icons.Default.Person
         "phone" -> Icons.Default.Phone
@@ -156,10 +163,11 @@ internal fun getIconVectorByName(name: String): ImageVector? {
         "ship_pending" -> Icons.Default.LocalShipping
         "taxi_alert" -> Icons.Default.TaxiAlert
         "start" -> Icons.Default.Star
-        "thumbup", "thumb_up" -> Icons.Default.ThumbUp
+        "thumbup", "thumb_up", "thumbsup" -> Icons.Default.ThumbUp
         "question", "questionmark" -> Icons.Default.QuestionMark
         "wallet" -> Icons.Default.Wallet
         "warning" -> Icons.Default.Warning
+        "world", "public" -> Icons.Default.Public
         else -> null
     }
 }

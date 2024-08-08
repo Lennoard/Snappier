@@ -155,9 +155,7 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
             observers.firstOrNull()?.let { observer ->
                 DisposableEffect(true) {
                     registeredComponent.attachObserver(observer)
-                    onDispose {
-                        registeredComponent.detachObserver(observer)
-                    }
+                    onDispose { registeredComponent.detachObserver(observer) }
                 }
             }
         }
