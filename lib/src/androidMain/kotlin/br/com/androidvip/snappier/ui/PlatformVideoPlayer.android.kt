@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import br.com.androidvip.snappier.data.VideoCacheController
-import br.com.androidvip.snappier.domain.component.data.VideoData
+import br.com.androidvip.snappier.domain.entities.Video
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
@@ -22,23 +22,23 @@ import com.google.android.exoplayer2.ui.StyledPlayerView
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
 
 @Composable
-actual fun NativeVideoPlayer(modifier: Modifier, videoData: VideoData) {
+actual fun NativeVideoPlayer(modifier: Modifier, video: Video) {
     val context = LocalContext.current
     val cacheDataSourceFactory = VideoCacheController().getCacheDataSourceFactory(context)
     val exoPlayer by remember {
-        mutableStateOf(getPlayer(context, videoData.url, cacheDataSourceFactory))
+        mutableStateOf(getPlayer(context, video.url, cacheDataSourceFactory))
     }
 
     AndroidView(
         factory = {
             StyledPlayerView(context).apply {
                 setShowBuffering(StyledPlayerView.SHOW_BUFFERING_ALWAYS)
-                useController = !videoData.hideControls
+                useController = !video.hideControls
                 player = exoPlayer
             }
         },
         update = {
-            if (videoData.autoPlay) {
+            if (video.autoPlay) {
                 it.player?.play()
             } else {
                 it.player?.prepare()

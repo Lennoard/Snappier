@@ -1,13 +1,14 @@
 package br.com.androidvip.snappier.data.models
 
+import br.com.androidvip.snappier.domain.component.scaffold.TopBar
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class TopBarDTO(
-    val title: TextDTO? = null,
-    val backgroundColor: String? = null,
-    val navigationIcon: IconDTO? = null,
-    val icons: List<IconDTO>? = null,
-    val constraints: ConstraintsDTO? = null,
-    val alignment: String? = null
-)
+    override val title: TextDTO? = null,
+    override val backgroundColor: String? = null,
+    override val navigationIcon: IconDTO? = null,
+    override val icons: List<IconDTO>? = null,
+    override val constraints: ConstraintsDTO? = null,
+    override val alignment: String? = null
+) : TopBar

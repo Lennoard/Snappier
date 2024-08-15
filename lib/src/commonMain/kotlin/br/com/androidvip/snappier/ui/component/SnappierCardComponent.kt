@@ -12,19 +12,19 @@ import androidx.compose.material3.OutlinedCard
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import br.com.androidvip.snappier.domain.component.SnappierComponentData
+import br.com.androidvip.snappier.data.models.CardDTO
+import br.com.androidvip.snappier.data.models.ContentDTO
+import br.com.androidvip.snappier.domain.component.Component
 import br.com.androidvip.snappier.domain.component.SnappierObservableComponent
-import br.com.androidvip.snappier.domain.component.base.Content
 import br.com.androidvip.snappier.domain.component.base.EventTrigger
-import br.com.androidvip.snappier.domain.component.data.CardData
 import br.com.androidvip.snappier.ui.utils.composeColor
 
 class SnappierCardComponent : SnappierObservableComponent("snappier_card") {
 
     @Composable
-    override fun render(data: SnappierComponentData, extras: Map<String, Any?>?) {
+    override fun View(data: Component, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.let { content ->
-            val card = content.cards?.firstOrNull() ?: CardData(Content())
+            val card = content.cards?.firstOrNull() ?: CardDTO(ContentDTO())
             val cardContent = card.content
             val border = card.border
             val stroke = card.stroke
@@ -52,7 +52,7 @@ class SnappierCardComponent : SnappierObservableComponent("snappier_card") {
                 },
                 shape = if (border != null) {
                     if (border.percent != null) {
-                        RoundedCornerShape(percent = border.percent.toInt())
+                        RoundedCornerShape(percent = border.percent!!.toInt())
                     } else {
                         RoundedCornerShape(
                             topStart = border.topLeft,

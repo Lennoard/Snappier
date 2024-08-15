@@ -1,25 +1,26 @@
 package br.com.androidvip.snappier.data.models
 
+import br.com.androidvip.snappier.domain.component.base.Content
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class ContentDTO(
-    val description: String? = null,
-    val backgroundColor: String? = null,
-    val foregroundColor: String? = null,
-    val scaffold: ScaffoldDTO? = null,
-    val stroke: StrokeDTO? = null,
-    val shadow: ShadowDTO? = null,
-    val border: BorderDTO? = null,
-    val constraints: ConstraintsDTO? = null,
-    val fab: FloatingActionButtonDTO? = null,
-    val parameters: JsonObject? = null,
-    val images: List<ImageDTO>? = null,
-    val videos: List<VideoDTO>? = null,
-    val texts: List<TextDTO>? = null,
-    val buttons: List<ButtonDTO>? = null,
-    val icons: List<IconDTO>? = null,
-    val cards: List<CardDTO>? = null,
-    val events: List<EventDTO>? = null
-)
+    override val description: String? = null,
+    override val backgroundColor: String? = null,
+    override val foregroundColor: String? = null,
+    override val scaffold: ScaffoldDTO? = null,
+    override val stroke: StrokeDTO? = null,
+    override val shadow: ShadowDTO? = null,
+    override val border: BorderDTO? = null,
+    override val constraints: ConstraintsDTO? = null,
+    override val fab: FloatingActionButtonDTO? = null,
+    override val parameters: JsonObject? = null,
+    override val images: List<ImageDTO>? = null,
+    override val videos: List<VideoDTO>? = null,
+    override val texts: List<TextDTO>? = null,
+    override val buttons: List<ButtonDTO>? = null,
+    override val icons: List<IconDTO>? = null,
+    override val cards: List<CardDTO>? = null,
+    override val events: List<EventDTO>? = null
+) : Content

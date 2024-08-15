@@ -33,6 +33,8 @@ fun App() {
     }
 
     MaterialTheme {
-        snappier.draw("http://localhost:8081/api")
+        with(snappier) {
+            SnappierView("http://localhost:8081/api")
+        }
     }
 }

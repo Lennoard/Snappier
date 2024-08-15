@@ -11,25 +11,25 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.awt.SwingPanel
 import androidx.compose.ui.graphics.Color
-import br.com.androidvip.snappier.domain.component.data.VideoData
-import java.awt.Component
+import br.com.androidvip.snappier.domain.entities.Video
 import uk.co.caprica.vlcj.factory.discovery.NativeDiscovery
 import uk.co.caprica.vlcj.player.base.MediaPlayer
 import uk.co.caprica.vlcj.player.component.CallbackMediaPlayerComponent
 import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent
+import java.awt.Component
 
 @Composable
-actual fun NativeVideoPlayer(modifier: Modifier, videoData: VideoData) {
+actual fun NativeVideoPlayer(modifier: Modifier, video: Video) {
     Column {
         VideoPlayerImpl(
             modifier = modifier,
-            videoData = videoData
+            videoData = video
         )
     }
 }
 
 @Composable
-internal fun VideoPlayerImpl(modifier: Modifier, videoData: VideoData) {
+internal fun VideoPlayerImpl(modifier: Modifier, videoData: Video) {
     val mediaPlayerComponent = remember { initializeMediaPlayerComponent() }
     val mediaPlayer = remember { mediaPlayerComponent.mediaPlayer() }
 

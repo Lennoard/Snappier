@@ -62,16 +62,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import br.com.androidvip.snappier.domain.component.SnappierComponentData
+import br.com.androidvip.snappier.domain.component.Component
 import br.com.androidvip.snappier.domain.component.SnappierObservableComponent
 import br.com.androidvip.snappier.domain.component.base.Event
 import br.com.androidvip.snappier.domain.component.base.EventTrigger
-import br.com.androidvip.snappier.domain.component.data.IconData
+import br.com.androidvip.snappier.domain.entities.Icon
 import br.com.androidvip.snappier.ui.utils.composeColor
 
 class SnappierIconComponent : SnappierObservableComponent("snappier_icon") {
     @Composable
-    override fun render(data: SnappierComponentData, extras: Map<String, Any?>?) {
+    override fun View(data: Component, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.let { content ->
             content.icons?.firstOrNull()?.let { icon ->
                 SnappierIconButton(
@@ -84,7 +84,7 @@ class SnappierIconComponent : SnappierObservableComponent("snappier_icon") {
 }
 
 @Composable
-fun SnappierIconButton(icon: IconData, onClick: ((Event) -> Unit)? = null) {
+fun SnappierIconButton(icon: Icon, onClick: ((Event) -> Unit)? = null) {
     getIconVectorByName(icon.token)?.let { vector ->
         if (onClick == null) {
             Icon(

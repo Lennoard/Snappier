@@ -18,11 +18,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
-import br.com.androidvip.snappier.domain.component.SnappierComponentData
+import br.com.androidvip.snappier.data.models.ImageDTO
+import br.com.androidvip.snappier.domain.component.Component
 import br.com.androidvip.snappier.domain.component.SnappierObservableComponent
 import br.com.androidvip.snappier.domain.component.base.Event
 import br.com.androidvip.snappier.domain.component.base.EventTrigger
-import br.com.androidvip.snappier.domain.component.data.ImageData
+import br.com.androidvip.snappier.domain.entities.Image
 import br.com.androidvip.snappier.ui.utils.composeColor
 import br.com.androidvip.snappier.ui.utils.contentScale
 import com.seiko.imageloader.model.ImageAction
@@ -32,9 +33,9 @@ import com.seiko.imageloader.ui.AutoSizeBox
 class SnappierImageComponent : SnappierObservableComponent("snappier_image") {
 
     @Composable
-    override fun render(data: SnappierComponentData, extras: Map<String, Any?>?) {
+    override fun View(data: Component, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.let { content ->
-            val image = content.images?.firstOrNull() ?: ImageData()
+            val image = content.images?.firstOrNull() ?: ImageDTO()
             SnappierImage(
                 image = image,
                 onClick = { emmitEvent(it) },
@@ -47,7 +48,7 @@ class SnappierImageComponent : SnappierObservableComponent("snappier_image") {
 
 @Composable
 fun SnappierImage(
-    image: ImageData,
+    image: Image,
     onClick: ((Event) -> Unit)? = null,
     onLongClick: ((Event) -> Unit)? = null,
     onDraw: ((Event) -> Unit)? = null
@@ -80,7 +81,7 @@ fun SnappierImage(
 }
 
 @Composable
-private fun ImageData?.imageModifier(
+private fun Image?.imageModifier(
     onClick: ((Event) -> Unit)? = null,
     onLongClick: ((Event) -> Unit)? = null,
     onDraw: ((Event) -> Unit)? = null
@@ -91,14 +92,14 @@ private fun ImageData?.imageModifier(
         result = constraintsModifier(onClick, onLongClick, onDraw)
 
         val shape = if (this@imageModifier?.border != null) {
-            if (border.percent != null) {
-                RoundedCornerShape(percent = border.percent.toInt())
+            if (border!!.percent != null) {
+                RoundedCornerShape(percent = border!!.percent!!.toInt())
             } else {
                 RoundedCornerShape(
-                    topStart = border.topLeft,
-                    topEnd = border.topRight,
-                    bottomStart = border.bottomLeft,
-                    bottomEnd = border.bottomRight
+                    topStart = border!!.topLeft,
+                    topEnd = border!!.topRight,
+                    bottomStart = border!!.bottomLeft,
+                    bottomEnd = border!!.bottomRight
                 )
             }
         } else {
@@ -110,7 +111,7 @@ private fun ImageData?.imageModifier(
         }
 
         if (this@imageModifier?.stroke != null) {
-            result = border(stroke.width.dp, stroke.color.composeColor(), shape).clip(shape)
+            result = border(stroke!!.width.dp, stroke!!.color.composeColor(), shape).clip(shape)
         }
 
         result
@@ -119,7 +120,7 @@ private fun ImageData?.imageModifier(
 
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
-private fun ImageData?.constraintsModifier(
+private fun Image?.constraintsModifier(
     onClick: ((Event) -> Unit)? = null,
     onLongClick: ((Event) -> Unit)? = null,
     onDraw: ((Event) -> Unit)? = null
@@ -127,13 +128,13 @@ private fun ImageData?.constraintsModifier(
     return Modifier.focusable().run {
         var result = this
         if (this@constraintsModifier?.constraints != null) {
-            result = if (constraints.width <= 0) {
+            result = if (constraints!!.width <= 0) {
                 result.fillMaxWidth()
             } else {
-                result.requiredWidth(constraints.width.dp)
+                result.requiredWidth(constraints!!.width.dp)
             }
 
-            constraints.height.takeIf { it > 0 }?.let {
+            constraints!!.height.takeIf { it > 0 }?.let {
                 result = result.requiredHeight(it.dp)
             }
         }

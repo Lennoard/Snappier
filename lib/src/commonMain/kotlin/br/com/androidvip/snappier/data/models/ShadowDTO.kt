@@ -1,10 +1,11 @@
 package br.com.androidvip.snappier.data.models
 
+import br.com.androidvip.snappier.domain.component.scaffold.Shadow
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class ShadowDTO(
-    val elevation: Float = 0F,
-    val color: String = "#000000",
-    val constraints: ConstraintsDTO? = null
-)
+    override val elevation: Float = 0F,
+    override val color: String = "#000000",
+    override val constraints: ConstraintsDTO? = null
+) : Shadow

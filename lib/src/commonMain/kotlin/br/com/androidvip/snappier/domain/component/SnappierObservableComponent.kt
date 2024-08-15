@@ -19,7 +19,7 @@ abstract class SnappierObservableComponent(
     }
 
     @Composable
-    abstract override fun render(data: SnappierComponentData, extras: Map<String, Any?>?)
+    abstract override fun View(data: Component, extras: Map<String, Any?>?)
 
     final override fun emmitEvent(event: Event) {
         observers.forEach { observer ->

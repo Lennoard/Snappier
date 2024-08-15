@@ -1,11 +1,9 @@
 package br.com.androidvip.snappier.ui
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import br.com.androidvip.snappier.domain.component.data.VideoData
+import br.com.androidvip.snappier.domain.entities.Video
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-actual fun NativeVideoPlayer(modifier: Modifier, videoData: VideoData) {
+actual fun NativeVideoPlayer(modifier: Modifier, video: Video) {
 }

@@ -5,7 +5,7 @@ package br.com.androidvip.snappier.domain.component
  * All components used in a project mut be registered using the [register]
  * function with their own *unique* id.
  *
- * Component registration must occur before any call to [SnappierComponent.render] occurs.
+ * Component registration must occur before any call to [SnappierComponent.View] occurs.
  *
  * Non-registered components will not be rendered by default.
  */

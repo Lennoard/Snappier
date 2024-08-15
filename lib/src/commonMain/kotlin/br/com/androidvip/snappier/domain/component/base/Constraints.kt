@@ -3,11 +3,11 @@ package br.com.androidvip.snappier.domain.component.base
 /**
  * Optional layout constrains for a component
  */
-data class Constraints(
-    val width: Float,
-    val height: Float,
+interface Constraints {
+    val width: Float
+    val height: Float
     val weight: Float
-) {
+
     /**
      * Special constants for [Constraints]
      */
