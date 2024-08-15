@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.interop.UIKitView
-import br.com.androidvip.snappier.domain.component.data.VideoData
+import br.com.androidvip.snappier.domain.entities.Video
 import kotlinx.cinterop.CValue
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.AVFoundation.AVPlayer
@@ -23,8 +23,8 @@ import platform.UIKit.UIView
 
 @OptIn(ExperimentalForeignApi::class)
 @Composable
-actual fun NativeVideoPlayer(modifier: Modifier, videoData: VideoData) {
-    val player = remember { AVPlayer(uRL = NSURL.URLWithString(videoData.url)!!) }
+actual fun NativeVideoPlayer(modifier: Modifier, video: Video) {
+    val player = remember { AVPlayer(uRL = NSURL.URLWithString(video.url)!!) }
     val playerLayer = remember { AVPlayerLayer() }
     val avPlayerViewController = remember { AVPlayerViewController() }
     avPlayerViewController.player = player
@@ -49,7 +49,7 @@ actual fun NativeVideoPlayer(modifier: Modifier, videoData: VideoData) {
             CATransaction.commit()
         },
         update = { _ ->
-            if (videoData.autoPlay) {
+            if (video.autoPlay) {
                 player.play()
                 avPlayerViewController.player!!.play()
             }

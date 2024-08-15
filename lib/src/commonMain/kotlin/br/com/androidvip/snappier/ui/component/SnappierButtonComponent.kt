@@ -10,18 +10,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import br.com.androidvip.snappier.domain.component.SnappierComponentData
+import br.com.androidvip.snappier.domain.component.Component
 import br.com.androidvip.snappier.domain.component.SnappierObservableComponent
 import br.com.androidvip.snappier.domain.component.base.Content
 import br.com.androidvip.snappier.domain.component.base.EventTrigger
-import br.com.androidvip.snappier.domain.component.data.ButtonData
+import br.com.androidvip.snappier.domain.entities.Button
 import br.com.androidvip.snappier.ui.utils.composeColor
 import br.com.androidvip.snappier.ui.utils.snappierModifier
 
 class SnappierButtonComponent : SnappierObservableComponent(ID) {
 
     @Composable
-    override fun render(data: SnappierComponentData, extras: Map<String, Any?>?) {
+    override fun View(data: Component, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.let { content ->
             content.buttons?.firstOrNull()?.let { button ->
                 SnappierButton(
@@ -43,7 +43,7 @@ class SnappierButtonComponent : SnappierObservableComponent(ID) {
 }
 
 @Composable
-fun SnappierButton(onClick: () -> Unit, content: Content?, button: ButtonData) {
+fun SnappierButton(onClick: () -> Unit, content: Content?, button: Button) {
     val border = button.border
     val stroke = button.stroke
     Button(
@@ -66,7 +66,7 @@ fun SnappierButton(onClick: () -> Unit, content: Content?, button: ButtonData) {
         },
         shape = if (border != null) {
             if (border.percent != null) {
-                RoundedCornerShape(percent = border.percent.toInt())
+                RoundedCornerShape(percent = border.percent!!.toInt())
             } else {
                 RoundedCornerShape(
                     topStart = border.topLeft,

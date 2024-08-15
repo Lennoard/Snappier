@@ -11,7 +11,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import br.com.androidvip.snappier.config.SnappierConfig
-import br.com.androidvip.snappier.data.mappers.ComponentMapper
 import br.com.androidvip.snappier.data.models.ComponentDTO
 import br.com.androidvip.snappier.domain.communication.CommunicationReceiver
 import br.com.androidvip.snappier.domain.communication.Communicator
@@ -57,7 +56,7 @@ class Snappier(private val config: SnappierConfig = SnappierConfig.defaultConfig
     }
 
     @Composable
-    fun draw(component: Component) {
+    fun SnappierView(component: Component) {
         val registeredComponent = registerer[component.id]
         var extras by remember { mutableStateOf<Map<String, Any?>?>(null) }
 
@@ -88,20 +87,20 @@ class Snappier(private val config: SnappierConfig = SnappierConfig.defaultConfig
             }
         }
 
-        registeredComponent?.render(component, extras)
+        registeredComponent?.View(component, extras)
     }
 
     @Composable
-    fun draw(components: List<Component>) {
+    fun SnappierView(components: List<Component>) {
         LazyColumn {
             items(count = components.count()) { index ->
-                draw(components[index])
+                SnappierView(components[index])
             }
         }
     }
 
     @Composable
-    fun draw(url: String) {
+    fun SnappierView(url: String) {
         var component by remember { mutableStateOf<Component?>(null) }
         var progress by remember { mutableIntStateOf(0) }
         var loading by remember { mutableStateOf(false) }
@@ -117,8 +116,7 @@ class Snappier(private val config: SnappierConfig = SnappierConfig.defaultConfig
                         progress = ((bytesSentTotal / contentLength) * 100).toInt()
                     }
                 }
-                val dto = request.body<ComponentDTO>()
-                component = ComponentMapper.map(dto)
+                component = request.body<ComponentDTO>()
             }.onFailure {
                 error = it
             }
@@ -135,7 +133,7 @@ class Snappier(private val config: SnappierConfig = SnappierConfig.defaultConfig
 
         AnimatedVisibility(!loading && error == null) {
             if (component != null) {
-                draw(component!!)
+                SnappierView(component!!)
             }
         }
     }

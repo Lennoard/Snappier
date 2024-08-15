@@ -1,5 +1,6 @@
 package br.com.androidvip.snappier.data.models
 
+import br.com.androidvip.snappier.domain.component.base.Event
 import br.com.androidvip.snappier.domain.component.base.EventTrigger
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
@@ -11,11 +12,11 @@ import kotlinx.serialization.encoding.Encoder
 
 @Serializable
 data class EventDTO(
-    val action: ActionDTO = ActionDTO(),
+    override val action: ActionDTO = ActionDTO(),
     @Serializable(with = EventTriggerSerializer::class)
-    val trigger: EventTrigger? = null,
-    val customTrigger: String? = null
-)
+    override val trigger: EventTrigger? = null,
+    override val customTrigger: String? = null
+) : Event
 
 object EventTriggerSerializer : KSerializer<EventTrigger?> {
     override val descriptor: SerialDescriptor =

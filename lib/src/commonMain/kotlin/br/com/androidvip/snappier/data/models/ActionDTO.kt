@@ -1,5 +1,6 @@
 package br.com.androidvip.snappier.data.models
 
+import br.com.androidvip.snappier.domain.component.base.Action
 import br.com.androidvip.snappier.domain.component.base.ActionType
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
@@ -12,11 +13,11 @@ import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class ActionDTO(
-    val data: String = "",
+    override val data: String = "",
     @Serializable(with = ActionTypeSerializer::class)
-    val type: ActionType? = null,
-    val extras: JsonObject? = null
-)
+    override val type: ActionType? = null,
+    override val extras: JsonObject? = null
+) : Action
 
 object ActionTypeSerializer : KSerializer<ActionType?> {
     override val descriptor: SerialDescriptor =

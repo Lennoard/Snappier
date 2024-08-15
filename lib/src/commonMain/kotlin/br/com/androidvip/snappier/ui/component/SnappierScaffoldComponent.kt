@@ -34,15 +34,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import br.com.androidvip.snappier.domain.communication.EventDispatcher
 import br.com.androidvip.snappier.domain.component.Component
-import br.com.androidvip.snappier.domain.component.SnappierComponentData
 import br.com.androidvip.snappier.domain.component.SnappierComponentRegisterer
 import br.com.androidvip.snappier.domain.component.SnappierObservableComponent
-import br.com.androidvip.snappier.domain.component.base.Event
 import br.com.androidvip.snappier.domain.component.base.EventTrigger
-import br.com.androidvip.snappier.domain.component.scaffold.BottomBarData
-import br.com.androidvip.snappier.domain.component.scaffold.NavigationItem
-import br.com.androidvip.snappier.domain.component.scaffold.ScaffoldData
-import br.com.androidvip.snappier.domain.component.scaffold.TopBarData
+import br.com.androidvip.snappier.domain.component.base.onClickEvent
+import br.com.androidvip.snappier.domain.component.scaffold.BottomBar
+import br.com.androidvip.snappier.domain.component.scaffold.Scaffold
+import br.com.androidvip.snappier.domain.component.scaffold.TopBar
+import br.com.androidvip.snappier.domain.entities.NavigationItem
 import br.com.androidvip.snappier.ui.utils.composeColor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -50,7 +49,7 @@ import kotlinx.coroutines.launch
 class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold") {
 
     @Composable
-    override fun render(data: SnappierComponentData, extras: Map<String, Any?>?) {
+    override fun View(data: Component, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.scaffold?.let { scaffold ->
             if (scaffold.isNavigationDrawerLayout) {
                 val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -72,7 +71,7 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
                                         selectedItem = item
                                         scope.launch { drawerState.close() }
                                         item.action?.let {
-                                            emmitEvent(Event(it, EventTrigger.OnClick))
+                                            emmitEvent(onClickEvent(it))
                                         }
                                         communicateData(
                                             data = mapOf("selectedItemLabel" to item.label),
@@ -105,7 +104,7 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
 
     @Composable
     private fun SnappierScaffold(
-        scaffold: ScaffoldData,
+        scaffold: Scaffold,
         drawerState: DrawerState?,
         scope: CoroutineScope?,
         extras: Map<String, Any?>?
@@ -160,13 +159,13 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
             }
         }
 
-        registeredComponent?.render(component, extras)
+        registeredComponent?.View(component, extras)
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     private fun TopBar(
-        topBar: TopBarData?,
+        topBar: TopBar?,
         isNavigationDrawerLayout: Boolean,
         drawerState: DrawerState?,
         scope: CoroutineScope?
@@ -226,7 +225,7 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
     }
 
     @Composable
-    private fun BottomBar(bottomBar: BottomBarData?, navigationItems: List<NavigationItem>?) {
+    private fun BottomBar(bottomBar: BottomBar?, navigationItems: List<NavigationItem>?) {
         var selectedItem by remember { mutableStateOf<NavigationItem?>(null) }
         bottomBar?.let { data ->
             NavigationBar(
@@ -244,14 +243,12 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
                         selected = selectedItem == item,
                         onClick = {
                             selectedItem = item
-                            item.action?.let {
-                                emmitEvent(Event(it, EventTrigger.OnClick))
-                            }
+                            item.action?.let { emmitEvent(onClickEvent(it)) }
                         },
                         label = if (item.label == null) {
                             null
                         } else {
-                            { Text(text = item.label) }
+                            { Text(text = item.label.orEmpty()) }
                         },
                         icon = {
                             item.icon?.let { icon ->

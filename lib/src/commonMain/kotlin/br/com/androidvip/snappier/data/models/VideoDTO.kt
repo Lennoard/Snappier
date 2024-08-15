@@ -1,15 +1,16 @@
 package br.com.androidvip.snappier.data.models
 
+import br.com.androidvip.snappier.domain.entities.Video
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class VideoDTO(
-    val url: String = "",
-    val description: String? = null,
-    val resourceName: String? = null,
-    val autoPlay: Boolean = false,
-    val hideControls: Boolean = false,
-    val events: List<EventDTO> = emptyList(),
-    val constraints: ConstraintsDTO? = null,
-    val alignment: String? = null
-)
+    override val url: String = "",
+    override val description: String? = null,
+    override val resourceName: String? = null,
+    override val autoPlay: Boolean = false,
+    override val hideControls: Boolean = false,
+    override val events: List<EventDTO> = emptyList(),
+    override val constraints: ConstraintsDTO? = null,
+    override val alignment: String? = null
+) : Video

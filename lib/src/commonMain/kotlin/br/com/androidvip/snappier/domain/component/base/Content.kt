@@ -1,42 +1,42 @@
 package br.com.androidvip.snappier.domain.component.base
 
+import br.com.androidvip.snappier.domain.component.Component
 import br.com.androidvip.snappier.domain.component.SnappierComponent
-import br.com.androidvip.snappier.domain.component.SnappierComponentData
-import br.com.androidvip.snappier.domain.component.data.BorderData
-import br.com.androidvip.snappier.domain.component.data.ButtonData
-import br.com.androidvip.snappier.domain.component.data.CardData
-import br.com.androidvip.snappier.domain.component.data.FloatingActionButtonData
-import br.com.androidvip.snappier.domain.component.data.IconData
-import br.com.androidvip.snappier.domain.component.data.ImageData
-import br.com.androidvip.snappier.domain.component.data.ShadowData
-import br.com.androidvip.snappier.domain.component.data.StrokeData
-import br.com.androidvip.snappier.domain.component.data.TextData
-import br.com.androidvip.snappier.domain.component.data.VideoData
-import br.com.androidvip.snappier.domain.component.scaffold.ScaffoldData
+import br.com.androidvip.snappier.domain.component.scaffold.Scaffold
+import br.com.androidvip.snappier.domain.component.scaffold.Shadow
+import br.com.androidvip.snappier.domain.entities.Border
+import br.com.androidvip.snappier.domain.entities.Button
+import br.com.androidvip.snappier.domain.entities.Card
+import br.com.androidvip.snappier.domain.entities.FloatingActionButton
+import br.com.androidvip.snappier.domain.entities.Icon
+import br.com.androidvip.snappier.domain.entities.Image
+import br.com.androidvip.snappier.domain.entities.Stroke
+import br.com.androidvip.snappier.domain.entities.Text
+import br.com.androidvip.snappier.domain.entities.Video
 import kotlinx.serialization.json.JsonObject
 
 /**
  * A [SnappierComponent]'s content. Any component can be reasonably
- * rendered using this class' properties as data.
+ * rendered using this interface's properties as data.
  *
- * @see [SnappierComponentData]
+ * @see [Component]
  */
-data class Content(
-    val description: String? = null,
-    val backgroundColor: String? = null,
-    val foregroundColor: String? = null,
-    val scaffold: ScaffoldData? = null,
-    val stroke: StrokeData? = null,
-    val shadow: ShadowData? = null,
-    val border: BorderData? = null,
-    val constraints: Constraints? = null,
-    val fab: FloatingActionButtonData? = null,
-    val parameters: JsonObject? = null,
-    val images: List<ImageData>? = emptyList(),
-    val videos: List<VideoData>? = emptyList(),
-    val texts: List<TextData>? = emptyList(),
-    val buttons: List<ButtonData>? = emptyList(),
-    val icons: List<IconData>? = emptyList(),
-    val cards: List<CardData>? = emptyList(),
-    val events: List<Event>? = emptyList()
-)
+interface Content {
+    val description: String?
+    val backgroundColor: String?
+    val foregroundColor: String?
+    val scaffold: Scaffold?
+    val stroke: Stroke?
+    val shadow: Shadow?
+    val border: Border?
+    val constraints: Constraints?
+    val fab: FloatingActionButton?
+    val parameters: JsonObject?
+    val images: List<Image>?
+    val videos: List<Video>?
+    val texts: List<Text>?
+    val buttons: List<Button>?
+    val icons: List<Icon>?
+    val cards: List<Card>?
+    val events: List<Event>?
+}

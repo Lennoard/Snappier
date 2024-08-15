@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ConstraintsDTO(
-    val width: Float = Constraints.WRAP_CONTENT,
-    val height: Float = Constraints.WRAP_CONTENT,
-    val weight: Float = Constraints.DEFAULT_WEIGHT
-)
+    override val width: Float = Constraints.WRAP_CONTENT,
+    override val height: Float = Constraints.WRAP_CONTENT,
+    override val weight: Float = Constraints.DEFAULT_WEIGHT
+) : Constraints

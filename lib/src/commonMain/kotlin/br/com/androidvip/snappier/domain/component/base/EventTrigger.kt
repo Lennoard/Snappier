@@ -8,7 +8,7 @@ enum class EventTrigger {
 
     companion object {
         fun parse(name: String): EventTrigger? {
-            return entries.firstOrNull { name.lowercase() == it.name.lowercase() }
+            return entries.find { name.equals(it.name, ignoreCase = true) }
         }
     }
 }
