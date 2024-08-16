@@ -33,7 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import br.com.androidvip.snappier.domain.communication.EventDispatcher
-import br.com.androidvip.snappier.domain.component.Component
+import br.com.androidvip.snappier.domain.component.Element
 import br.com.androidvip.snappier.domain.component.SnappierComponentRegisterer
 import br.com.androidvip.snappier.domain.component.SnappierObservableComponent
 import br.com.androidvip.snappier.domain.component.base.EventTrigger
@@ -49,7 +49,7 @@ import kotlinx.coroutines.launch
 class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold") {
 
     @Composable
-    override fun View(data: Component, extras: Map<String, Any?>?) {
+    override fun View(data: Element, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.scaffold?.let { scaffold ->
             if (scaffold.isNavigationDrawerLayout) {
                 val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -122,12 +122,12 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
             },
             bottomBar = { BottomBar(scaffold.bottomBar, scaffold.navigationItems) },
             floatingActionButton = {
-                scaffold.floatingComponent?.let { component ->
+                scaffold.floatingElement?.let { component ->
                     ScaffoldComponent(registerer, component, extras)
                 }
             }
         ) { paddingValues ->
-            scaffold.components?.let { components ->
+            scaffold.elements?.let { components ->
                 Box(
                     modifier = Modifier
                         .padding(paddingValues)
@@ -146,10 +146,10 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
     @Composable
     private fun ScaffoldComponent(
         registerer: SnappierComponentRegisterer,
-        component: Component,
+        element: Element,
         extras: Map<String, Any?>?
     ) {
-        val registeredComponent = registerer[component.id]
+        val registeredComponent = registerer[element.id]
         if (registeredComponent is EventDispatcher) {
             observers.firstOrNull()?.let { observer ->
                 DisposableEffect(true) {
@@ -159,7 +159,7 @@ class SnappierScaffoldComponent : SnappierObservableComponent("snappier_scaffold
             }
         }
 
-        registeredComponent?.View(component, extras)
+        registeredComponent?.View(element, extras)
     }
 
     @OptIn(ExperimentalMaterial3Api::class)

@@ -1,6 +1,6 @@
 package br.com.androidvip.snappier.domain.component.base
 
-import br.com.androidvip.snappier.domain.component.Component
+import br.com.androidvip.snappier.domain.component.Element
 import br.com.androidvip.snappier.domain.component.SnappierComponent
 import br.com.androidvip.snappier.domain.component.scaffold.Scaffold
 import br.com.androidvip.snappier.domain.component.scaffold.Shadow
@@ -19,7 +19,7 @@ import kotlinx.serialization.json.JsonObject
  * A [SnappierComponent]'s content. Any component can be reasonably
  * rendered using this interface's properties as data.
  *
- * @see [Component]
+ * @see [Element]
  */
 interface Content {
     val description: String?

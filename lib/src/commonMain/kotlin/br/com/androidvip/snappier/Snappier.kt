@@ -11,12 +11,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import br.com.androidvip.snappier.config.SnappierConfig
-import br.com.androidvip.snappier.data.models.ComponentDTO
+import br.com.androidvip.snappier.data.models.ElementDTO
 import br.com.androidvip.snappier.domain.communication.CommunicationReceiver
 import br.com.androidvip.snappier.domain.communication.Communicator
 import br.com.androidvip.snappier.domain.communication.EventDispatcher
 import br.com.androidvip.snappier.domain.communication.EventObserver
-import br.com.androidvip.snappier.domain.component.Component
+import br.com.androidvip.snappier.domain.component.Element
 import br.com.androidvip.snappier.domain.component.SnappierComponent
 import br.com.androidvip.snappier.domain.component.SnappierComponentRegisterer
 import br.com.androidvip.snappier.domain.component.base.Event
@@ -56,8 +56,8 @@ class Snappier(private val config: SnappierConfig = SnappierConfig.defaultConfig
     }
 
     @Composable
-    fun SnappierView(component: Component) {
-        val registeredComponent = registerer[component.id]
+    fun SnappierView(element: Element) {
+        val registeredComponent = registerer[element.id]
         var extras by remember { mutableStateOf<Map<String, Any?>?>(null) }
 
         if (registeredComponent is EventDispatcher) {
@@ -87,21 +87,21 @@ class Snappier(private val config: SnappierConfig = SnappierConfig.defaultConfig
             }
         }
 
-        registeredComponent?.View(component, extras)
+        registeredComponent?.View(element, extras)
     }
 
     @Composable
-    fun SnappierView(components: List<Component>) {
+    fun SnappierView(elements: List<Element>) {
         LazyColumn {
-            items(count = components.count()) { index ->
-                SnappierView(components[index])
+            items(count = elements.count()) { index ->
+                SnappierView(elements[index])
             }
         }
     }
 
     @Composable
     fun SnappierView(url: String) {
-        var component by remember { mutableStateOf<Component?>(null) }
+        var element by remember { mutableStateOf<Element?>(null) }
         var progress by remember { mutableIntStateOf(0) }
         var loading by remember { mutableStateOf(false) }
         var error by remember { mutableStateOf<Throwable?>(null) }
@@ -116,7 +116,7 @@ class Snappier(private val config: SnappierConfig = SnappierConfig.defaultConfig
                         progress = ((bytesSentTotal / contentLength) * 100).toInt()
                     }
                 }
-                component = request.body<ComponentDTO>()
+                element = request.body<ElementDTO>()
             }.onFailure {
                 error = it
             }
@@ -132,8 +132,8 @@ class Snappier(private val config: SnappierConfig = SnappierConfig.defaultConfig
         }
 
         AnimatedVisibility(!loading && error == null) {
-            if (component != null) {
-                SnappierView(component!!)
+            if (element != null) {
+                SnappierView(element!!)
             }
         }
     }

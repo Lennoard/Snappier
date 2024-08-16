@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import br.com.androidvip.snappier.domain.component.Component
+import br.com.androidvip.snappier.domain.component.Element
 import br.com.androidvip.snappier.domain.component.SnappierObservableComponent
 import br.com.androidvip.snappier.domain.component.base.Content
 import br.com.androidvip.snappier.domain.component.base.EventTrigger
@@ -21,7 +21,7 @@ import br.com.androidvip.snappier.ui.utils.snappierModifier
 class SnappierButtonComponent : SnappierObservableComponent(ID) {
 
     @Composable
-    override fun View(data: Component, extras: Map<String, Any?>?) {
+    override fun View(data: Element, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.let { content ->
             content.buttons?.firstOrNull()?.let { button ->
                 SnappierButton(

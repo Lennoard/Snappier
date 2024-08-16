@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import br.com.androidvip.snappier.data.models.CardDTO
 import br.com.androidvip.snappier.data.models.ContentDTO
-import br.com.androidvip.snappier.domain.component.Component
+import br.com.androidvip.snappier.domain.component.Element
 import br.com.androidvip.snappier.domain.component.SnappierObservableComponent
 import br.com.androidvip.snappier.domain.component.base.EventTrigger
 import br.com.androidvip.snappier.ui.utils.composeColor
@@ -22,7 +22,7 @@ import br.com.androidvip.snappier.ui.utils.composeColor
 class SnappierCardComponent : SnappierObservableComponent("snappier_card") {
 
     @Composable
-    override fun View(data: Component, extras: Map<String, Any?>?) {
+    override fun View(data: Element, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.let { content ->
             val card = content.cards?.firstOrNull() ?: CardDTO(ContentDTO())
             val cardContent = card.content
