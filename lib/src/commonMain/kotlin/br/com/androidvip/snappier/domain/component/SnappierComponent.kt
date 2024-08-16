@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 /**
  * Base interface for components.
  * Custom components must implement this interface and arrange themselves using the provided
- * [Component] in the [View] function.
+ * [Element] in the [View] function.
  * A Component must have its own unique [id] that is registered by the renderer.
  *
  * @see [SnappierComponentRegisterer]
@@ -24,5 +24,5 @@ interface SnappierComponent {
      * @see <a href="https://developer.android.com/jetpack/compose">Jetpack Compose</a>
      **/
     @Composable
-    fun View(data: Component, extras: Map<String, Any?>?)
+    fun View(data: Element, extras: Map<String, Any?>?)
 }

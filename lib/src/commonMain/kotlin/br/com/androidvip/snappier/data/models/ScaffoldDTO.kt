@@ -8,9 +8,9 @@ import kotlinx.serialization.json.JsonObject
 data class ScaffoldDTO(
     override val topBar: TopBarDTO? = null,
     override val bottomBar: BottomBarDTO? = null,
-    override val floatingComponent: ComponentDTO? = null,
+    override val floatingElement: ElementDTO? = null,
     override val isNavigationDrawerLayout: Boolean = false,
     override val navigationItems: List<NavigationItemDTO>? = null,
     override val parameters: JsonObject? = null,
-    override val components: List<ComponentDTO>? = null
+    override val elements: List<ElementDTO>? = null
 ) : Scaffold

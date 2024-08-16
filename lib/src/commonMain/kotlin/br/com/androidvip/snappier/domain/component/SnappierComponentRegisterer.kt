@@ -9,7 +9,9 @@ package br.com.androidvip.snappier.domain.component
  *
  * Non-registered components will not be rendered by default.
  */
+
 internal object SnappierComponentRegisterer {
+    // TODO: Lazy<SnappierComponent>
     private val registeredComponents: LinkedHashMap<String, SnappierComponent> = linkedMapOf()
 
     /**

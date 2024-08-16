@@ -19,7 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import br.com.androidvip.snappier.data.models.ImageDTO
-import br.com.androidvip.snappier.domain.component.Component
+import br.com.androidvip.snappier.domain.component.Element
 import br.com.androidvip.snappier.domain.component.SnappierObservableComponent
 import br.com.androidvip.snappier.domain.component.base.Event
 import br.com.androidvip.snappier.domain.component.base.EventTrigger
@@ -33,7 +33,7 @@ import com.seiko.imageloader.ui.AutoSizeBox
 class SnappierImageComponent : SnappierObservableComponent("snappier_image") {
 
     @Composable
-    override fun View(data: Component, extras: Map<String, Any?>?) {
+    override fun View(data: Element, extras: Map<String, Any?>?) {
         data.contents.firstOrNull()?.let { content ->
             val image = content.images?.firstOrNull() ?: ImageDTO()
             SnappierImage(
