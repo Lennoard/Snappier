@@ -18,7 +18,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import br.com.androidvip.snappier.domain.component.base.Constraints
 import br.com.androidvip.snappier.domain.component.base.Content
-import br.com.androidvip.snappier.domain.component.base.Event
+import br.com.androidvip.snappier.domain.component.base.SnappierEvent
 import br.com.androidvip.snappier.domain.component.base.EventTrigger
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -26,9 +26,9 @@ import br.com.androidvip.snappier.domain.component.base.EventTrigger
 fun Modifier.snappierModifier(
     content: Content?,
     constraints: Constraints? = null,
-    onClick: ((Event) -> Unit)? = null,
-    onLongClick: ((Event) -> Unit)? = null,
-    onDraw: ((Event) -> Unit)? = null
+    onClick: ((SnappierEvent) -> Unit)? = null,
+    onLongClick: ((SnappierEvent) -> Unit)? = null,
+    onDraw: ((SnappierEvent) -> Unit)? = null
 ): Modifier {
     return focusable().run {
         var result = this

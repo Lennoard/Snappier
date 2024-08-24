@@ -19,9 +19,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import br.com.androidvip.snappier.data.models.ImageDTO
-import br.com.androidvip.snappier.domain.component.Element
+import br.com.androidvip.snappier.domain.component.base.Element
 import br.com.androidvip.snappier.domain.component.SnappierObservableComponent
-import br.com.androidvip.snappier.domain.component.base.Event
+import br.com.androidvip.snappier.domain.component.base.SnappierEvent
 import br.com.androidvip.snappier.domain.component.base.EventTrigger
 import br.com.androidvip.snappier.domain.entities.Image
 import br.com.androidvip.snappier.ui.utils.composeColor
@@ -49,9 +49,9 @@ class SnappierImageComponent : SnappierObservableComponent("snappier_image") {
 @Composable
 fun SnappierImage(
     image: Image,
-    onClick: ((Event) -> Unit)? = null,
-    onLongClick: ((Event) -> Unit)? = null,
-    onDraw: ((Event) -> Unit)? = null
+    onClick: ((SnappierEvent) -> Unit)? = null,
+    onLongClick: ((SnappierEvent) -> Unit)? = null,
+    onDraw: ((SnappierEvent) -> Unit)? = null
 ) {
     AutoSizeBox(image.url) { action ->
         when (action) {
@@ -82,9 +82,9 @@ fun SnappierImage(
 
 @Composable
 private fun Image?.imageModifier(
-    onClick: ((Event) -> Unit)? = null,
-    onLongClick: ((Event) -> Unit)? = null,
-    onDraw: ((Event) -> Unit)? = null
+    onClick: ((SnappierEvent) -> Unit)? = null,
+    onLongClick: ((SnappierEvent) -> Unit)? = null,
+    onDraw: ((SnappierEvent) -> Unit)? = null
 ): Modifier {
     return Modifier.focusable().run {
         var result: Modifier
@@ -121,9 +121,9 @@ private fun Image?.imageModifier(
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
 private fun Image?.constraintsModifier(
-    onClick: ((Event) -> Unit)? = null,
-    onLongClick: ((Event) -> Unit)? = null,
-    onDraw: ((Event) -> Unit)? = null
+    onClick: ((SnappierEvent) -> Unit)? = null,
+    onLongClick: ((SnappierEvent) -> Unit)? = null,
+    onDraw: ((SnappierEvent) -> Unit)? = null
 ): Modifier {
     return Modifier.focusable().run {
         var result = this

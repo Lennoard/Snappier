@@ -6,10 +6,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import br.com.androidvip.snappier.data.models.TextDTO
-import br.com.androidvip.snappier.domain.component.Element
+import br.com.androidvip.snappier.domain.component.base.Element
 import br.com.androidvip.snappier.domain.component.SnappierObservableComponent
 import br.com.androidvip.snappier.domain.component.base.Content
-import br.com.androidvip.snappier.domain.component.base.Event
+import br.com.androidvip.snappier.domain.component.base.SnappierEvent
 import br.com.androidvip.snappier.domain.entities.Text
 import br.com.androidvip.snappier.ui.utils.composeColor
 import br.com.androidvip.snappier.ui.utils.snappierModifier
@@ -40,16 +40,16 @@ class SnappierTextComponent : SnappierObservableComponent(ID) {
 fun SnappierText(
     content: Content?,
     text: Text,
-    onClick: ((Event) -> Unit)? = null,
-    onLongClick: ((Event) -> Unit)? = null,
-    onDraw: ((Event) -> Unit)? = null
+    onClick: ((SnappierEvent) -> Unit)? = null,
+    onLongClick: ((SnappierEvent) -> Unit)? = null,
+    onDraw: ((SnappierEvent) -> Unit)? = null
 ) {
     Text(
         text = text.text,
         color = text.color.composeColor(),
         fontSize = text.size.sp,
         textAlign = text.alignment.textAlignment(),
-        fontWeight = FontWeight(text.weight),
+        fontWeight = FontWeight(text.fontWeight),
         modifier = Modifier.snappierModifier(
             content = content,
             constraints = text.constraints,

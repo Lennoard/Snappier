@@ -1,7 +1,6 @@
 package br.com.androidvip.snappier.domain.component.scaffold
 
-import br.com.androidvip.snappier.domain.component.Element
-import br.com.androidvip.snappier.domain.entities.NavigationItem
+import br.com.androidvip.snappier.domain.component.base.Element
 import kotlinx.serialization.json.JsonObject
 
 interface Scaffold {

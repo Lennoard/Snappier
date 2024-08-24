@@ -1,6 +1,6 @@
 package br.com.androidvip.snappier.data.models
 
-import br.com.androidvip.snappier.domain.entities.NavigationItem
+import br.com.androidvip.snappier.domain.component.scaffold.NavigationItem
 import kotlinx.serialization.Serializable
 
 @Serializable

@@ -9,7 +9,7 @@ data class TextDTO(
     override val text: String = "",
     override val color: String = "#000000",
     override val size: Float = 14F,
-    override val weight: Int = FontWeight.Normal.weight,
+    override val fontWeight: Int = FontWeight.Normal.weight,
     override val events: List<EventDTO> = emptyList(),
     override val constraints: ConstraintsDTO? = null,
     override val alignment: String? = null
