@@ -16,10 +16,10 @@ import br.com.androidvip.snappier.domain.communication.CommunicationReceiver
 import br.com.androidvip.snappier.domain.communication.Communicator
 import br.com.androidvip.snappier.domain.communication.EventDispatcher
 import br.com.androidvip.snappier.domain.communication.EventObserver
-import br.com.androidvip.snappier.domain.component.Element
 import br.com.androidvip.snappier.domain.component.SnappierComponent
 import br.com.androidvip.snappier.domain.component.SnappierComponentRegisterer
-import br.com.androidvip.snappier.domain.component.base.Event
+import br.com.androidvip.snappier.domain.component.base.Element
+import br.com.androidvip.snappier.domain.component.base.SnappierEvent
 import br.com.androidvip.snappier.ui.component.SnappierButtonComponent
 import br.com.androidvip.snappier.ui.component.SnappierCardComponent
 import br.com.androidvip.snappier.ui.component.SnappierFloatingActionButtonComponent
@@ -154,7 +154,7 @@ class Snappier(private val config: SnappierConfig = SnappierConfig.defaultConfig
         observers.remove(observer)
     }
 
-    override fun receiveEvent(event: Event) {
+    override fun receiveEvent(event: SnappierEvent) {
         observers.forEach {
             it.receiveEvent(event)
         }

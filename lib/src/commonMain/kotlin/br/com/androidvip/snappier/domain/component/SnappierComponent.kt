@@ -1,6 +1,7 @@
 package br.com.androidvip.snappier.domain.component
 
 import androidx.compose.runtime.Composable
+import br.com.androidvip.snappier.domain.component.base.Element
 
 /**
  * Base interface for components.

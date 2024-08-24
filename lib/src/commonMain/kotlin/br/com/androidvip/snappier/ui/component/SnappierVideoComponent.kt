@@ -9,8 +9,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import br.com.androidvip.snappier.domain.component.Element
 import br.com.androidvip.snappier.domain.component.SnappierObservableComponent
+import br.com.androidvip.snappier.domain.component.base.Element
 import br.com.androidvip.snappier.domain.component.base.EventTrigger
 import br.com.androidvip.snappier.domain.entities.Video
 import br.com.androidvip.snappier.ui.NativeVideoPlayer

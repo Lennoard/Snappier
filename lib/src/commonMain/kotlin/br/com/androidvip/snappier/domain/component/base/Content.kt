@@ -1,15 +1,14 @@
 package br.com.androidvip.snappier.domain.component.base
 
-import br.com.androidvip.snappier.domain.component.Element
 import br.com.androidvip.snappier.domain.component.SnappierComponent
 import br.com.androidvip.snappier.domain.component.scaffold.Scaffold
-import br.com.androidvip.snappier.domain.component.scaffold.Shadow
 import br.com.androidvip.snappier.domain.entities.Border
 import br.com.androidvip.snappier.domain.entities.Button
 import br.com.androidvip.snappier.domain.entities.Card
 import br.com.androidvip.snappier.domain.entities.FloatingActionButton
 import br.com.androidvip.snappier.domain.entities.Icon
 import br.com.androidvip.snappier.domain.entities.Image
+import br.com.androidvip.snappier.domain.entities.Shadow
 import br.com.androidvip.snappier.domain.entities.Stroke
 import br.com.androidvip.snappier.domain.entities.Text
 import br.com.androidvip.snappier.domain.entities.Video
@@ -38,5 +37,5 @@ interface Content {
     val buttons: List<Button>?
     val icons: List<Icon>?
     val cards: List<Card>?
-    val events: List<Event>?
+    val events: List<SnappierEvent>?
 }

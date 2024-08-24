@@ -1,6 +1,6 @@
 package br.com.androidvip.snappier.domain.communication
 
-import br.com.androidvip.snappier.domain.component.base.Event
+import br.com.androidvip.snappier.domain.component.base.SnappierEvent
 
 /**
  * Interface for objects interested in receiving events from components.
@@ -11,7 +11,7 @@ fun interface EventObserver {
 
     /**
      * Called after the component sends events to this observer.
-     * @param event [Event] sent.
+     * @param event [SnappierEvent] sent.
      */
-    fun receiveEvent(event: Event)
+    fun receiveEvent(event: SnappierEvent)
 }

@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import br.com.androidvip.snappier.data.models.CardDTO
 import br.com.androidvip.snappier.data.models.ContentDTO
-import br.com.androidvip.snappier.domain.component.Element
+import br.com.androidvip.snappier.domain.component.base.Element
 import br.com.androidvip.snappier.domain.component.SnappierObservableComponent
 import br.com.androidvip.snappier.domain.component.base.EventTrigger
 import br.com.androidvip.snappier.ui.utils.composeColor

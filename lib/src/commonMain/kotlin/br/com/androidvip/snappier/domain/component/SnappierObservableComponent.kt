@@ -5,7 +5,8 @@ import br.com.androidvip.snappier.domain.communication.CommunicationReceiver
 import br.com.androidvip.snappier.domain.communication.Communicator
 import br.com.androidvip.snappier.domain.communication.EventDispatcher
 import br.com.androidvip.snappier.domain.communication.EventObserver
-import br.com.androidvip.snappier.domain.component.base.Event
+import br.com.androidvip.snappier.domain.component.base.Element
+import br.com.androidvip.snappier.domain.component.base.SnappierEvent
 
 abstract class SnappierObservableComponent(
     override val id: String,
@@ -21,7 +22,7 @@ abstract class SnappierObservableComponent(
     @Composable
     abstract override fun View(data: Element, extras: Map<String, Any?>?)
 
-    final override fun emmitEvent(event: Event) {
+    final override fun emmitEvent(event: SnappierEvent) {
         observers.forEach { observer ->
             observer.receiveEvent(event)
         }

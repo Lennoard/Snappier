@@ -1,6 +1,6 @@
-package br.com.androidvip.snappier.domain.component
+package br.com.androidvip.snappier.domain.component.base
 
-import br.com.androidvip.snappier.domain.component.base.Content
+import br.com.androidvip.snappier.domain.component.SnappierComponent
 import kotlinx.serialization.json.JsonObject
 
 /**
@@ -12,6 +12,7 @@ interface Element {
      * Element's unique identifier
      */
     val id: String
+
     /**
      * The list of [Content]s to be rendered on screen.
      */

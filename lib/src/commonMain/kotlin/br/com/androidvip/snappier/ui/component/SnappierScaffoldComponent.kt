@@ -33,7 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import br.com.androidvip.snappier.domain.communication.EventDispatcher
-import br.com.androidvip.snappier.domain.component.Element
+import br.com.androidvip.snappier.domain.component.base.Element
 import br.com.androidvip.snappier.domain.component.SnappierComponentRegisterer
 import br.com.androidvip.snappier.domain.component.SnappierObservableComponent
 import br.com.androidvip.snappier.domain.component.base.EventTrigger
@@ -41,7 +41,7 @@ import br.com.androidvip.snappier.domain.component.base.onClickEvent
 import br.com.androidvip.snappier.domain.component.scaffold.BottomBar
 import br.com.androidvip.snappier.domain.component.scaffold.Scaffold
 import br.com.androidvip.snappier.domain.component.scaffold.TopBar
-import br.com.androidvip.snappier.domain.entities.NavigationItem
+import br.com.androidvip.snappier.domain.component.scaffold.NavigationItem
 import br.com.androidvip.snappier.ui.utils.composeColor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
