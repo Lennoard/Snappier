@@ -1,7 +1,6 @@
 package br.com.androidvip.snappier.domain.component.base
 
 import br.com.androidvip.snappier.domain.component.SnappierComponent
-import kotlinx.serialization.json.JsonObject
 
 /**
  * Interface defining an element, the data representation of a [SnappierComponent].
@@ -22,5 +21,5 @@ interface Element {
      * Optional parameters needed for the behaviour and/or rendering of
      * the [SnappierComponent] associated with this data.
      */
-    val parameters: JsonObject? // TODO: Use regular Map
+    val parameters: Map<String, Any>?
 }

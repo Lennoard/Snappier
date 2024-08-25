@@ -12,7 +12,6 @@ import br.com.androidvip.snappier.domain.entities.Shadow
 import br.com.androidvip.snappier.domain.entities.Stroke
 import br.com.androidvip.snappier.domain.entities.Text
 import br.com.androidvip.snappier.domain.entities.Video
-import kotlinx.serialization.json.JsonObject
 
 /**
  * A [SnappierComponent]'s content. Any component can be reasonably
@@ -30,7 +29,7 @@ interface Content {
     val border: Border?
     val constraints: Constraints?
     val fab: FloatingActionButton?
-    val parameters: JsonObject?
+    val parameters: Map<String, Any?>?
     val images: List<Image>?
     val videos: List<Video>?
     val texts: List<Text>?
