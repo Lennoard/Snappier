@@ -24,12 +24,13 @@ import com.google.android.exoplayer2.upstream.cache.CacheDataSource
 @Composable
 actual fun NativeVideoPlayer(modifier: Modifier, video: Video) {
     val context = LocalContext.current
-    val cacheDataSourceFactory = VideoCacheController().getCacheDataSourceFactory(context)
+    val cacheDataSourceFactory = VideoCacheController.getCacheDataSourceFactory(context)
     val exoPlayer by remember {
         mutableStateOf(getPlayer(context, video.url, cacheDataSourceFactory))
     }
 
     AndroidView(
+        modifier = modifier,
         factory = {
             StyledPlayerView(context).apply {
                 setShowBuffering(StyledPlayerView.SHOW_BUFFERING_ALWAYS)

@@ -11,24 +11,32 @@ import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvicto
 import com.google.android.exoplayer2.upstream.cache.SimpleCache
 import java.io.File
 
-class VideoCacheController {
+object VideoCacheController {
+    private var cacheDataSourceFactory: CacheDataSource.Factory? = null
+    private const val CACHE_SIZE_BYTES = 100L + 1024 * 1024
+    private const val CACHE_DIR = "snappier_cache"
 
     fun getCacheDataSourceFactory(context: Context): CacheDataSource.Factory {
-        val upstreamFactory = DefaultDataSource.Factory(context, DefaultHttpDataSource.Factory())
-        val cache = SimpleCache(
-            File(context.cacheDir, CACHE_DIR),
-            LeastRecentlyUsedCacheEvictor(CACHE_SIZE_BYTES),
-            StandaloneDatabaseProvider(context)
-        )
-        return CacheDataSource.Factory()
-            .setCache(cache)
-            .setCacheWriteDataSinkFactory(CacheDataSink.Factory().setCache(cache))
-            .setCacheReadDataSourceFactory(FileDataSource.Factory())
-            .setUpstreamDataSourceFactory(upstreamFactory)
-    }
-
-    companion object {
-        private const val CACHE_SIZE_BYTES = 100L + 1024 * 1024
-        private const val CACHE_DIR = "snappier_cache"
+        if (cacheDataSourceFactory == null) {
+            synchronized(this) {
+                if (cacheDataSourceFactory == null) {
+                    val upstreamFactory = DefaultDataSource.Factory(
+                        context,
+                        DefaultHttpDataSource.Factory()
+                    )
+                    val cache = SimpleCache(
+                        File(context.cacheDir, CACHE_DIR),
+                        LeastRecentlyUsedCacheEvictor(CACHE_SIZE_BYTES),
+                        StandaloneDatabaseProvider(context)
+                    )
+                    cacheDataSourceFactory = CacheDataSource.Factory()
+                        .setCache(cache)
+                        .setCacheWriteDataSinkFactory(CacheDataSink.Factory().setCache(cache))
+                        .setCacheReadDataSourceFactory(FileDataSource.Factory())
+                        .setUpstreamDataSourceFactory(upstreamFactory)
+                }
+            }
+        }
+        return cacheDataSourceFactory!!
     }
 }
