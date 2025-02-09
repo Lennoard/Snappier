@@ -17,3 +17,5 @@ captures
 **/xcshareddata/WorkspaceSettings.xcsettings
 /publishing.properties
 /kotlin-js-store/*
+/google-services.json
+/composeApp/src/desktopMain/kotlin/firebase/FirebaseOptions.kt

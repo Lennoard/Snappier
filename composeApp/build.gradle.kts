@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.kotlinxSerialization)
+
+    id("com.google.gms.google-services")
 }
 
 kotlin {
@@ -52,11 +54,19 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
 
             implementation(libs.bundles.ktor.common)
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.gitlive.firebase.firestore)
+            implementation(libs.gitlive.firebase.database)
         }
 
         androidMain.dependencies {
+            implementation(compose.preview)
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.ktor.client.okhttp)
+            implementation(libs.koin.android)
+            implementation(libs.koin.androidx.compose)
+            implementation(project.dependencies.platform(libs.android.firebase.bom))
         }
 
         iosMain.dependencies {
@@ -74,7 +84,7 @@ kotlin {
 }
 
 android {
-    namespace = "br.com.androidvip.snappier"
+    namespace = "br.com.androidvip.snappierandroid"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
