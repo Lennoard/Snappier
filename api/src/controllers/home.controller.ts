@@ -5,7 +5,7 @@ const json = {
   contents: [
     {
       scaffold: {
-        components: [
+        elements: [
           {
             id: "snappier_text",
             contents: [
@@ -14,7 +14,7 @@ const json = {
                   {
                     text: "Scaffold content from Snappier API!",
                     size: 48,
-                    weight: 700,
+                    fontWeight: 700,
                     alignment: "center",
                     constraints: {
                       width: -1
@@ -25,7 +25,7 @@ const json = {
             ]
           }
         ],
-        floatingComponent: {
+        floatingElement: {
           id: "snappier_fab",
           contents: [
             {
@@ -35,7 +35,7 @@ const json = {
                   text: "Extended action",
                   size: 16,
                   color: "#123321",
-                  weight: 600
+                  fontWeight: 600
                 },
                 icon: {
                   size: 24,
@@ -74,7 +74,7 @@ const json = {
           title: {
             text: "TopBar App Name",
             size: 24,
-            weight: 700,
+            fontWeight: 700,
             color: "#000000"
           },
           icons: [
