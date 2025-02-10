@@ -64,7 +64,7 @@ class Snappier(private val config: SnappierConfig = SnappierConfig.defaultConfig
             DisposableEffect(true) {
                 registeredComponent.attachObserver(this@Snappier)
                 onDispose {
-                    registeredComponent.detachObserver(this@Snappier)
+                    //registeredComponent.detachObserver(this@Snappier)
                 }
             }
         }

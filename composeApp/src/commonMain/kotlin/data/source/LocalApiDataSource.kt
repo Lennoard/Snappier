@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.flow
 class LocalApiDataSource(
     private val httpClient: HttpClient
 ): SnappierDataSource {
-    override fun getHomeScreenElement() = flow {
+    override fun getElementById(elementId: String) = flow {
         val request = httpClient.request {
             method = HttpMethod.Get
             url(API_URL)
