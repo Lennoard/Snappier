@@ -1,4 +1,4 @@
-package br.com.androidvip.snappier
+package br.com.androidvip.snappierandroid
 
 import App
 import android.os.Bundle

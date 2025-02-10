@@ -11,11 +11,11 @@ class SnappierRepositoryImpl(
     private val firebaseDataSource: SnappierDataSource,
     private val inMemoryDataSource: SnappierDataSource
 ): SnappierRepository {
-    override suspend fun getHomeScreenElement(source: DataSource): Flow<Element> {
+    override suspend fun getElementById(elementId: String, source: DataSource): Flow<Element> {
         return when (source) {
-            DataSource.LocalApi -> apiDataSource.getHomeScreenElement()
-            DataSource.FirebaseDatabase -> firebaseDataSource.getHomeScreenElement()
-            DataSource.InMemory -> inMemoryDataSource.getHomeScreenElement()
+            DataSource.LocalApi -> apiDataSource.getElementById(elementId)
+            DataSource.FirebaseDatabase -> firebaseDataSource.getElementById(elementId)
+            DataSource.InMemory -> inMemoryDataSource.getElementById(elementId)
         }
     }
 }

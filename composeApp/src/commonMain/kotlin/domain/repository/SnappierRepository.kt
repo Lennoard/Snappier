@@ -5,5 +5,5 @@ import domain.DataSource
 import kotlinx.coroutines.flow.Flow
 
 interface SnappierRepository {
-    suspend fun getHomeScreenElement(source: DataSource): Flow<Element>
+    suspend fun getElementById(elementId: String, source: DataSource): Flow<Element>
 }

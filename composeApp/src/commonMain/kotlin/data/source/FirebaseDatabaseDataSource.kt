@@ -7,14 +7,14 @@ import kotlinx.coroutines.flow.flow
 class FirebaseDatabaseDataSource(
     private val firebaseDatabase: FirebaseDatabase
 ): SnappierDataSource {
-    override fun getHomeScreenElement() = flow {
-        val ref = firebaseDatabase.reference(HOME_SCREEN_PATH)
+    override fun getElementById(elementId: String) = flow {
+        val ref = firebaseDatabase.reference(EXAMPLE_PATH).child(elementId)
         ref.valueEvents.collect { snapshot ->
             emit(snapshot.value<ElementDTO>())
         }
     }
 
     companion object {
-        private const val HOME_SCREEN_PATH = "/example02/home"
+        private const val EXAMPLE_PATH = "example01"
     }
 }

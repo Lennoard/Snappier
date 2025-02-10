@@ -17,14 +17,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 object InMemoryDataSource : SnappierDataSource {
-    override fun getHomeScreenElement(): Flow<Element> {
+    override fun getElementById(elementId: String): Flow<Element> {
         return flowOf(
             ElementDTO(
                 id = "snappier_scaffold",
                 contents = listOf(
                     ContentDTO(
                         scaffold = ScaffoldDTO(
-                            elements = getScaffoldElements(),
+                            elements = getScaffoldElements(elementId),
                             floatingElement = getFloatingScaffoldElement()
                         )
                     )
@@ -33,7 +33,7 @@ object InMemoryDataSource : SnappierDataSource {
         )
     }
 
-    private fun getScaffoldElements(): List<ElementDTO> {
+    private fun getScaffoldElements(elementId: String): List<ElementDTO> {
         return listOf(
             ElementDTO(
                 id = "snappier_text",
@@ -41,7 +41,7 @@ object InMemoryDataSource : SnappierDataSource {
                     ContentDTO(
                         texts = listOf(
                             TextDTO(
-                                text = "Scaffold content from Snappier!",
+                                text = "Scaffold content for '$elementId'!",
                                 size = 48F,
                                 fontWeight = 700,
                                 alignment = "center",
