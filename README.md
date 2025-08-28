@@ -1,6 +1,8 @@
 # Snappier
 
-Snappier is an open-source **Server-Driven UI** multiplatform library based on [Compose Multiplatform UI Framework](https://www.jetbrains.com/lp/compose-multiplatform/) with the goal of being open and customizable.
+Snappier is an open-source **Server-Driven UI** multiplatform library based
+on [Compose Multiplatform UI Framework](https://www.jetbrains.com/lp/compose-multiplatform/) with
+the goal of being open and customizable.
 
 **Currently supported platforms:**
 
@@ -112,6 +114,9 @@ fun App() {
         addObserver { event ->
             println("Received event: $event")
         }
+      
+        // Register your components
+        register(listOf(ComponentA(), ComponentB()))
     }
 
     MaterialTheme {
@@ -190,6 +195,54 @@ Run the project using:
 
     gradlew jsRun
 
+---
+
 ## Creating components
 
-TODO
+To create a new component, you need to implement the SnappierComponent interface or inherit from an
+existing implementation like the library's `SnappierObservableComponent` if you need to observe and
+react to events. Each component must have a unique `id`.
+Here's an example of a simple `SearchComponent`:
+
+```kotlin
+class SearchComponent(
+    override val data: ComponentData,
+) : SnappierObservableComponent(data) {
+
+    override val id: String = "search" // Unique identifier for this component type
+
+    @Composable
+    override fun View(data: Element, extras: Map<String, Any?>?) {
+        // Implement your Composable UI here
+        Text("This is a Search Component!")
+        // You can use `data` to access parameters passed from the server
+        // `data` is an `Element`, with which you can get all basic UI stuff like texts, buttons, etc
+        val primaryText = data.contents.firstOrNull()?.texts?.firstOrNull()
+        Text(text = primaryText.orEmpty())
+    }
+
+    override fun onEvent(event: Event) {
+        super.onEvent(event)
+        // Handle events specific to this component
+        println("SearchComponent received event: $event")
+    }
+}
+
+```
+
+### Registering your component
+
+After creating your component, you need to register it with Snappier so it can be rendered.
+You can do this when initializing Snappier:
+```kotlin
+val snappier = Snappier {
+    // ... other configurations
+}.apply { 
+    register(SearchComponent())
+}
+```
+
+Now, when the backend sends a JSON payload with a component whose `id` matches "search",
+your SearchComponent will be rendered.
+A sample JSON payload can be found in the [API sample home controller](api/src/controllers/home.controller.ts).
+It should render a social app home page example. 

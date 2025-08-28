@@ -77,7 +77,7 @@ class SearchComponent(observer: EventObserver) :
                             expanded = searchActive,
                             onExpandedChange = { searchActive = it },
                             enabled = true,
-                            placeholder = { Text("Pesquisar produtos...") },
+                            placeholder = { Text("Search products...") },
                             leadingIcon = null,
                             trailingIcon = null,
                             colors = colors1.inputFieldColors,

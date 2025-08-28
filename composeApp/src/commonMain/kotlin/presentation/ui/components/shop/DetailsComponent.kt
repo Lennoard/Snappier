@@ -78,7 +78,7 @@ class DetailsComponent(defaultObserver: EventObserver? = null) : SnappierObserva
                             emmitEvent(
                                 genericEvent(
                                     ActionDTO(
-                                        data = if (!favorite) "Removido dos favoritos!" else "Adicionado aos favoritos!",
+                                        data = if (!favorite) "Removed" else "Added",
                                         type = ActionType.ShowShortMessage
                                     )
                                 )
@@ -157,7 +157,7 @@ class DetailsComponent(defaultObserver: EventObserver? = null) : SnappierObserva
                             )
                     ) {
                         Text(
-                            text = "Compromisso da Loja",
+                            text = "Shop commitment",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.SemiBold,
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
@@ -165,7 +165,7 @@ class DetailsComponent(defaultObserver: EventObserver? = null) : SnappierObserva
                     }
 
                     Text(
-                        text = "Garantia de entrega",
+                        text = "Warranty",
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
                     )
@@ -182,7 +182,7 @@ class DetailsComponent(defaultObserver: EventObserver? = null) : SnappierObserva
                             tint = Color.parse("#428A29")
                         )
                         Text(
-                            text = "Cupom de R$15,00 por entrega atrasada",
+                            text = "$15.00 discount",
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Medium,
                         )
@@ -200,7 +200,7 @@ class DetailsComponent(defaultObserver: EventObserver? = null) : SnappierObserva
                             tint = Color.parse("#428A29")
                         )
                         Text(
-                            text = "Reembolso de items danificados",
+                            text = "7 day money back guarantee",
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Medium,
                         )
