@@ -25,7 +25,7 @@ class SnappierConfig internal constructor(
         return this
     }
 
-    fun onLoadingErrorComposable(function: @Composable (progress: Int) -> Unit): SnappierConfig {
+    fun onLoadingComposable(function: @Composable (progress: Int) -> Unit): SnappierConfig {
         onLoading = function
         return this
     }

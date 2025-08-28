@@ -99,7 +99,7 @@ fun App() {
         }
 
         LaunchedEffect(route) {
-            repository.getElementById(route, DataSource.FirebaseDatabase).collect {
+            repository.getElementById(route, DataSource.LocalApi).collect {
                 element = it
             }
         }

@@ -8,13 +8,11 @@ import kotlinx.coroutines.flow.Flow
 
 class SnappierRepositoryImpl(
     private val apiDataSource: SnappierDataSource,
-    private val firebaseDataSource: SnappierDataSource,
     private val inMemoryDataSource: SnappierDataSource
 ): SnappierRepository {
     override suspend fun getElementById(elementId: String, source: DataSource): Flow<Element> {
         return when (source) {
             DataSource.LocalApi -> apiDataSource.getElementById(elementId)
-            DataSource.FirebaseDatabase -> firebaseDataSource.getElementById(elementId)
             DataSource.InMemory -> inMemoryDataSource.getElementById(elementId)
         }
     }

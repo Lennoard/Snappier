@@ -57,8 +57,6 @@ kotlin {
             implementation(libs.bundles.ktor.common)
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
-            implementation(libs.gitlive.firebase.firestore)
-            implementation(libs.gitlive.firebase.database)
         }
 
         androidMain.dependencies {
@@ -67,7 +65,6 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
-            implementation(project.dependencies.platform(libs.android.firebase.bom))
         }
 
         iosMain.dependencies {

@@ -1,12 +1,9 @@
 package data.di
 
 import data.repository.SnappierRepositoryImpl
-import data.source.FirebaseDatabaseDataSource
 import data.source.InMemoryDataSource
 import data.source.LocalApiDataSource
 import data.source.SnappierDataSource
-import dev.gitlive.firebase.Firebase
-import dev.gitlive.firebase.database.database
 import domain.DataSource
 import domain.repository.SnappierRepository
 import io.ktor.client.HttpClient
@@ -27,15 +24,8 @@ val dataModule = module {
         }
     }
 
-    single { Firebase.database }
-
     singleOf(::LocalApiDataSource) {
         named<DataSource.LocalApi>()
-        bind<SnappierDataSource>()
-    }
-
-    singleOf(::FirebaseDatabaseDataSource) {
-        named<DataSource.FirebaseDatabase>()
         bind<SnappierDataSource>()
     }
 
@@ -46,7 +36,6 @@ val dataModule = module {
     single<SnappierRepository> {
         SnappierRepositoryImpl(
             apiDataSource = get(named<DataSource.LocalApi>()),
-            firebaseDataSource = get(named<DataSource.FirebaseDatabase>()),
             inMemoryDataSource = get(named<DataSource.InMemory>())
         )
     }
