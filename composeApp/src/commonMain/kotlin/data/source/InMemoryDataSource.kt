@@ -41,7 +41,7 @@ object InMemoryDataSource : SnappierDataSource {
                     ContentDTO(
                         texts = listOf(
                             TextDTO(
-                                text = "Scaffold content for '$elementId'!",
+                                text = "Content for \n\n\nelement \"$elementId\"!",
                                 size = 48F,
                                 fontWeight = 700,
                                 alignment = "center",
@@ -71,7 +71,7 @@ object InMemoryDataSource : SnappierDataSource {
                         text = TextDTO(
                             text = "Refresh",
                             size = 16F,
-                            color = "#123321"
+                            color = "#FFFFFF"
                         ),
                         icon = IconDTO(
                             size = 24F,

@@ -25,7 +25,6 @@ ktor = "2.3.8"
 navigationCompose = "2.8.0-alpha10"
 vlcj = "4.7.0"
 activityKtx = "1.9.1"
-firebase-bom = "33.1.1"
 gitlive = "1.13.0"
 
 [libraries]
@@ -53,10 +52,6 @@ compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = 
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 compose-material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "compose" }
 imageLoader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "image-loader" }
-
-android-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
-gitlive-firebase-firestore = { group = "dev.gitlive", name = "firebase-firestore", version.ref = "gitlive" }
-gitlive-firebase-database = { group = "dev.gitlive", name = "firebase-database", version.ref = "gitlive" }
 
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-json = { group = "io.ktor", name = "ktor-client-json", version.ref = "ktor" }

@@ -216,7 +216,7 @@ class SocialFeedComponent : SnappierObservableComponent("social-feed") {
                 ) {
                     var comment by remember { mutableStateOf("") }
                     Text(
-                        text = "Adicionar comentário",
+                        text = "Add comment",
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
